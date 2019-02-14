@@ -1,0 +1,37 @@
+<%- | String $netmask,
+      String $network,
+      String $ip_addr,
+      String $domain,
+      String $dhcp_start,
+      String $dhcp_end,
+| -%> 
+# UNDER PUPPET CONTROL - MODIFICATIONS WILL BE OVERWRITTEN
+
+### setting the default pport
+port=53
+
+## device/address to listen
+listen-address=<%= $ip_addr %>
+
+# setting local domain name
+domain=<%= $domain %>
+
+bogus-priv
+domain-needed
+expand-hosts
+
+#local=/lan/
+
+## enable the dhcp server
+dhcp-authoritative
+dhcp-leasefile=/var/lib/misc/dnsmasq.leases
+dhcp-option=1,<%= $netmask %>
+
+## the dhcp range
+dhcp-range=<%= $dhcp_start %>,<%= $dhcp_end %>,12h  ## 12h lease-time
+
+# sending empty default gateway
+dhcp-option=3,<%= $ip_addr %>
+
+# Include all files in /etc/dnsmasq.d except RPM backup files
+conf-dir=/etc/dnsmasq.d,.rpmnew,.rpmsave,.rpmorig

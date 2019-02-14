@@ -1,0 +1,11 @@
+Windows:
+--------
+Entpackt die *.7z Datei und startet dayofinfamy.exe.
+Um euren Spielernamen zu ändern editiert die ali213.ini
+
+Linux:
+------
+Entpackt den Tarball und startet die dayofinfamy.sh
+Um euren Spielernamen zu ändern editiert die activated.ini.
+
+Solltet ihr Probleme mit den Texturen haben, versucht die Shade Qualität auf "medium" zu stellen.

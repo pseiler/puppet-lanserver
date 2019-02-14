@@ -1,0 +1,9 @@
+Windows:
+--------
+Entpackt die *.7z Datei und startet insurgency.exe.
+Um euren Spielernamen zu ändern editiert die ali213.ini
+
+Linux:
+------
+Entpackt den Tarball und startet die insurgency.sh
+Um euren Spielernamen zu ändern editiert die activated.ini

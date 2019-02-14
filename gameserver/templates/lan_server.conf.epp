@@ -1,0 +1,21 @@
+<%- | String $watchdir,
+      String $admin_user,
+      String $password,
+      String $torrent_dir,
+      String $webroot,
+      String $tracker_url,
+      String $template_dir,
+      String $fqdn,
+      Integer $port
+| -%>
+# UNDER PUPPET CONTROL - MODIFICATIONS WILL BE OVERWRITTEN
+
+WATCHDIR="<%= $watchdir %>"
+USER="<%= $admin_user %>"
+PASSWORD="<%= $password %>"
+TORRENT_ROOT="<%= $torrent_dir %>"
+WEB_ROOT="<%= $webroot %>"
+TRACKER_URL="<%= $tracker_url %>"
+TEMPLATE_DIR="<%= $template_dir %>"
+TRANSMISSION_PORT=<%= $port %>
+TRANSMISSION_FQDN=<%= $fqdn %>

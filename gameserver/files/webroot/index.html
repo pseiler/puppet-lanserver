@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <link rel="stylesheet" type="text/css" href="/stylesheet.css" media="screen" />
+    <link rel="icon" type="image/vnd.microsoft.icon" href="/images/favicon.ico" />
+    <title>Hauptseite</title>
+</head>
+
+<body>
+<header>
+    <div>
+        <a href=/index.html><img src="/images/banner.png" alt="SOB LAN"></a>
+        <h1><a href=/index.html>LAN Party</a></h1>
+        <table>
+            <tr>
+                <th><a href=/index.html>Hauptseite</a></th>
+                <th><a href=/games.html>Spiele</a></th>
+                <th><a href=/tools>Tools</a></th>
+                <th><a href=/upload>Upload</a></th>
+                <th><a href=http://server.lan:8080/>Chat</a></th>
+            </tr>
+        </table>
+    </div>
+</header>
+<div>
+    <h2>Einstieg</h2>
+    <h3>Spiele runterladen</h3>
+    <ol>
+        <li>Um die Spiele herunterladen zu können, benötigt ihr einen BitTorrent Client. Diesen findet ihr für x86 <a href=tools/transmission-2.94-x86.msi>hier</a> oder für x64 <a href=tools/transmission-2.94-x64.msi>hier</a>.</li>
+        <li>Der oben heruntergeladene Client muss installiert werden, dann kanns auch schon losgehen. Klickt euch einfach durch die Dialoge und stellt bei Abweichungen eure Pfade zu den Downloads selbst ein.</li>
+        <li>Nun surft ihr diesen Pfad an: (<a href=torrent/>klick mich</a>) und sucht das passende Spiel aus.</li>
+        <li>Die <b>*.torrent</b> Datei des Spiels wird heruntergeladen und dem BitTorrent Client hinzugefügt.</li>
+        <li>Der Download sollte nun nach ein paar Sekunden starten und sich im gewählten Downloadverzeichnis befinden.</li>
+        <li>Den Torrent Client solltet ihr am besten die ganze Zeit aktiv haben, um den Download auch vom eigenen zu ermöglichen. Somit verteilen sich die Dateien schneller.</li>
+    </ol>
+    <p>Eine Übersicht aller unterstützen Spiele inklusive Link zur Installationsanleitung findet ihr <a href=games.html>hier</a></p>
+    <p>Von Benutzern hochgeladene Dateien findet ihr <a href=/upload>hier</a></p>
+    <h3>Spiele hochladen</h3>
+    <ol>
+        <li>Um ein Spiel hochzuladen, benötigt ihr einen FTP Client wie z.B. Filezilla (Download findet ihr für x86 <a href=tools/FileZilla_3.33.0_win32-setup_bundled.exe>hier</a> oder für x64 <a href=tools/FileZilla_3.33.0_win64-setup_bundled.exe>hier</a>).</li>
+        <li>Diesen installiert ihr und klickt euch durch die Dialoge.</li>
+        <li>Startet Filezilla und tragt oben bei der Adresse <b>"server.lan"</b> ein und verbindet euch. Falls nötig, gebt den Port <i>22</i> an. </li>
+        <li>Nun könnt ihr eingepackte Dateien (<i>*.zip</i>, <i>*.rar</i> und <i>*.7z</i> Archive) in das <i>upload</i> Verzeichnis des FTP kopieren.</li>
+        <li>Ist der Upload abgeschlossen, so wird eine <i>*.torrent</i> Datei im Verzeichnis <a href=/upload><i>upload</i></a> abgelegt. Von hier aus, kann die Datei dann jeder runterladen und im Netzwerk verteilen.
+    </ol>
+    <p>Das hochladen kompletter Verzeichnisse funktioniert leider nicht. Falls ihr ein Programm zum Archivieren benötigt, kann ich euch 7-Zip empfehlen. Runterladen könnt ihr es für x86 <a href=tools/7z1805.exe>hier</a> oder für x64 <a href=tools/7z1805-x64.exe>hier</a>.</p>
+    <h3>Chatten</h3>
+    <p>Wollt ihr mit den anderen chatten, so könnt ihr dem IRC Server joinen. Diesen findet ihr <a href="http://server.lan:8080/">hier</a>. Nun gebt einen Nicknamen ein und chattet fröhlich mit den anderen Teilnehmern. Alternativ könnt ihr einen full Client wie HexChat aus dem <a href="tools/">/tools</a> Bereich installieren.</p>
+    <h3>Allgemein</h3>
+    <ul>
+        <li>Wer sich für das Protokoll BitTorrent interessiert, kann <a href=/torrent.html>hier</a> nachlesen.</li>
+        <li>Wollt ihr euch über die Serversoftware informieren, lest hier <a href=/technik.html>hier</a> nach.</li>
+    </ul>
+</div>
+<p>created by Philipp Seiler</p>
+</body>
+</html>

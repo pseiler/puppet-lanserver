@@ -1,0 +1,31 @@
+<%- | String $hostname,
+      String $domain,
+      String $title,
+| -%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <link rel="stylesheet" type="text/css" href="/stylesheet.css" media="screen" />
+    <link rel="icon" type="image/vnd.microsoft.icon" href="/images/favicon.ico" />
+    <title><%= $title %></title>
+</head>
+
+<body>
+<header> 
+    <div>
+        <a href=/index.html><img src="/images/banner.png" alt="SOB LAN"></a>
+        <h1><a href=/index.html>LAN Party</a></h1>                                                                                                     
+        <table>
+            <tr>
+                <th><a href=/index.html>Hauptseite</a></th>
+                <th><a href=/games.html>Spiele</a></th>
+                <th><a href=/tools>Tools</a></th>
+                <th><a href=/upload>Upload</a></th>
+                <th><a href=http://<%= $hostname %>.<%= $domain %>:8080/>Chat</a></th>
+            </tr>
+        </table>
+    </div>
+</header>
+<div>
+<h2><%= $title %></h2>

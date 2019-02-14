@@ -1,0 +1,16 @@
+Windows:
+--------
+Führt zuerst "ioquake3-1.36-3.1.x86.exe" aus dem Verzeichnis Windows aus.
+Dann "ioquake3-q3a-1.32-1.x86.exe".
+Anschließend kopiert ihr noch die "pak0.pk3" in das "baseq3/" des Installationsverzeichnisses.
+
+Linux:
+-----
+Führt zuerst "ioquake3-1.36-7.1.$ARCH.run" aus dem Verzeichnis Linux aus.
+Dann "ioquake3-q3a-1.32-9.run".
+Anschließend kopiert ihr noch die "pak0.pk3" in das "baseq3/" des Installationsverzeichnisses.
+
+Mac:
+-----
+Führt "ioquake3 1.36.dmg" aus.
+Anschließend kopiert ihr noch die "pak0.pk3" in das "baseq3/" des Installationsverzeichnisses.

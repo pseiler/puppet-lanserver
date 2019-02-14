@@ -1,0 +1,98 @@
+/* generic styling*/
+html {
+        background-color: #b6ff96;
+}
+body {
+ margin: 20px;
+}
+
+a {
+ text-decoration: none;
+}
+/* a:visited {
+    color: red;
+} */
+
+
+/* Header styling */
+header a {
+    color: inherit;
+}
+
+header img {
+    width: 80px;
+    display: block;
+    margin: auto;
+}
+header h1 {
+    margin: 0px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+header tr {
+    margin: 0;
+
+}
+header table {
+    margin: auto;
+}
+header th a {
+    background-color: #40d740;
+    color: white;
+    /* margin: 0; */
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    padding: 14px 25px; 
+}
+header th a:hover {
+    background-color: #43bd43;
+    color: white;
+    /* margin: 0; */
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    padding: 14px 25px;
+    -webkit-transition: 200ms linear 0s;
+    -moz-transition: 200ms linear 0s;
+    -o-transition: 200ms linear 0s;
+    transition: 200ms linear 0s;
+}
+
+/* HTML body */
+body > div {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+h2, h3 {
+    /* margin-top: 5px;*/
+    margin-bottom: 5px;
+}
+ul, ol {
+    margin: 0px;
+}
+body > ul li {
+    font-size: 18;
+}
+p {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+body > div th {
+    background-color: #40d740;
+    padding: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: white;
+}
+body > div td {
+    text-align: center;
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.game_name {
+    padding-top: 15px;
+    padding-bottom: 0px;
+}

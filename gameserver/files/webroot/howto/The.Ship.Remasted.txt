@@ -1,0 +1,12 @@
+Windows:
+-------
+Entpackt die "*.7z" Datei.
+Startet die "*.exe" Datei.
+Um den Benutzernamen zu ändern, editiert ihr die ali213.ini unter "TheShipRemasted_Data/Plugins/"
+
+
+Linux:
+------
+Macht die *.AppImage Datei eurer Architektur ausführbar und startet sie.
+Möchtet ihr einen anderen Benutzernamen so startet ihr das *.AppImage wie folgt
+$ USER="H4xx0r" ./*.AppImage

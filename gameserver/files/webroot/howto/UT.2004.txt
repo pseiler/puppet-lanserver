@@ -1,0 +1,17 @@
+Allgemein:
+----------
+Das Image "dev-u4dv.iso" einhängen (z.B. als virtuelles Laufwerk).
+
+Windows:
+--------
+Das Image "dev-u4dv.iso" einhängen (z.B. als virtuelles Laufwerk). Wenn ihr kein passendes Programm dafür habt, installiert euch WinCDEmu-4.1.exe aus dem /Tools Bereich.
+Anschließend den Installer starten.
+Der CD Key ist als "ut2004_key.txt" beigelegt.
+Nach erfolgreicher Installation führt man noch den Patch "UT2004MegaPack.exe" im "Windows" Verzeichnis aus.
+
+Linux:
+------
+Unter Linux hängt ihr einfach das Image mit "root# mount -o loop dev-u4dv.iso /mnt" ein.
+Hier führt ihr den Installer aus.
+Der CD Key ist als "ut2004_key.txt" beigelegt.
+Nach erfolgreicher Installation führt man noch den Patch "ut2004.megapack-english-3.run" im "Linux" Verzeichnis aus.

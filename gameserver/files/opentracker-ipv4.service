@@ -1,0 +1,13 @@
+[Unit]
+Description=Opentracker torrent tracker (ipv4 version)
+Documentation=man:opentracker-ipv4.service(8) man:opentracker.conf(5) http://www.foo.org/docs/
+After=network.target
+
+[Service]
+Type=forking
+EnvironmentFile=-/etc/sysconfig/opentracker-ipv4
+ExecStart=/usr/bin/opentracker-ipv4 -f /etc/opentracker/opentracker-ipv4.conf -m $OPTIONS
+ExecReload=/bin/kill -SIGHUP ${MAINPID}
+
+[Install]
+WantedBy=network-online.target

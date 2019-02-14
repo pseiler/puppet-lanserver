@@ -1,0 +1,5 @@
+Windows:
+--------
+Lade die *.7z Datei herunter.
+Entpacke sie mithilfe von 7z.
+Starte die etlegacy.exe

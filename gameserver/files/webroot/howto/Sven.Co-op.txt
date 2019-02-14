@@ -1,0 +1,19 @@
+Windows:
+--------
+Entpackt die *.7z Datei.
+Startet Sven Co-Op indem ihr auf die "svencoop.exe" klickt.
+Um das Spiel mit Console zu starten erstellt eine "svencoop.bat" und fügt folgende Zeile hinzu.
+Bsp.:
+START svencoop.exe -console
+
+Um einen Server zu joinen gebt einfach in der Sven Co-op Console folgendes ein.
+"connect server.lan:27020"
+
+Um die console auf eine Taste zu legen, reicht folgende Zeile in der "Sven_Co-op/svencoop/userconfig.cfg" Datei:
+bind "f11" toggleconsole
+
+Linux:                                                                                                                  
+------
+Tarball entpacken und die "svencoop.sh" Datei mit dem Parameter "-console" starten.
+Um einen Server zu joinen gebt einfach in der Sven Co-op Console folgendes ein.
+"connect server.lan:27020"

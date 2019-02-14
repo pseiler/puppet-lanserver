@@ -1,0 +1,20 @@
+Windows:
+--------
+Entpackt die *.7z Datei.
+Startet Half-Life indem ihr auf die "hl.exe" klickt.
+Um das Spiel mit Console zu starten erstellt eine "hl.bat" und fügt folgende Zeile hinzu.
+Bsp.:
+START hl.exe -game valve -console
+
+Um einen Server zu joinen gebt einfach in der Half-Life Console folgendes ein.
+"connect server.lan"
+
+Um die console auf eine Taste zu legen, reicht folgende Zeile in der "Half-Life/valve/userconfig.cfg" Datei:
+bind "f11" toggleconsole
+                                                                                                                  
+Linux:
+------
+Führt das *.AppImage aus und startet es mit dem Parameter "-console"
+
+Um einen Server zu joinen gebt einfach in der Half-Life Console folgendes ein.
+"connect server.lan:27017"

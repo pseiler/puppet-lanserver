@@ -1,0 +1,25 @@
+<%- | String $ip_addr,
+      String $netmask,
+      String $network,
+      String $network_device,
+| -%>
+# UNDER PUPPET CONTROL - MODIFICATIONS WILL BE OVERWRITTEN
+TYPE="Ethernet"
+NM_CONTROLLED="no"
+PROXY_METHOD="none"
+BROWSER_ONLY="no"
+BOOTPROTO="no"
+DEFROUTE="no"
+IPV4_FAILURE_FATAL="yes"
+IPV6INIT="no"
+IPV6_AUTOCONF="no"
+IPV6_DEFROUTE="no"
+IPV6_FAILURE_FATAL="no"
+IPV6_ADDR_GEN_MODE="stable-privacy"
+ONBOOT="yes"
+
+NAME="<%= $network_device %>"
+DEVICE="<%= $network_device %>"
+IPADDR=<%= $ip_addr %>
+NETMASK=<%= $netmask %>
+NETWORK=<%= $network %>

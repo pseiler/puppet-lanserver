@@ -1,0 +1,4 @@
+Windows:
+--------
+Die *.7z entpacken und FrozenThrone.exe starten.
+Map Pack nach Warcraft3/maps packen *FIXME*

@@ -1,0 +1,14 @@
+<%- | String $hostname,
+      String $domain,
+      String $shortname,
+      String $ip_addr,
+| -%>
+# UNDER PUPPET CONTROL - MODIFICATIONS WILL BE OVERWRITTEN
+
+# setting localhost
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+# hostname for the server
+<%= $ip_addr %> <%= $hostname %>.<%= $domain %> <%= $hostname %>
+<%= $ip_addr %> <%= $shortname %>.<%= $domain %> <%= $shortname %>

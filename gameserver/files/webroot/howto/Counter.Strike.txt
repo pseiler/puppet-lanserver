@@ -1,0 +1,20 @@
+Windows:
+--------
+Entpackt die *.7z Datei.
+Startet Counter-Strike indem ihr auf die "cstrike.bat" klickt.
+Um das Spiel mit Console zu starten editiert ihr die "*.bat" und fügt ein "-console" hinten an.
+Bsp.:
+START hl.exe -game cstrike -console
+
+Um einen Server zu joinen gebt einfach in der Counter-Strike Console folgendes ein.
+"connect server.lan:27015"
+
+Um die console auf eine Taste zu legen, reicht folgende Zeile in der "Counter-Strike/cstrike/userconfig.cfg" Datei:
+bind "f11" toggleconsole
+
+Linux:
+------
+Führt das *.AppImage aus und startet es mit dem Parameter "-console"
+
+Um einen Server zu joinen gebt einfach in der Half-Life Console folgendes ein.
+"connect server.lan:27015"
