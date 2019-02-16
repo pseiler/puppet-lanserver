@@ -1,16 +1,16 @@
-class gameserver::host (
-  $network_device    = $::gameserver::network_device,
-  $ip_addr           = $::gameserver::ip_addr,
-  $my_hostname       = $::gameserver::my_hostname,
-  $my_domain         = $::gameserver::my_domain,
-  $my_shortname      = $::gameserver::my_shortname,
-  $netmask           = $::gameserver::netmask,
-  $network           = $::gameserver::network,
+class lanserver::host (
+  $network_device    = $::lanserver::network_device,
+  $ip_addr           = $::lanserver::ip_addr,
+  $my_hostname       = $::lanserver::my_hostname,
+  $my_domain         = $::lanserver::my_domain,
+  $my_shortname      = $::lanserver::my_shortname,
+  $netmask           = $::lanserver::netmask,
+  $network           = $::lanserver::network,
 ) {
   ## host configuration
   file { '/etc/hosts':
     ensure => 'present',
-    content => epp('gameserver/hosts.epp', {'ip_addr' => $ip_addr, 'hostname' => $my_hostname, 'shortname' => $my_shortname, 'domain' => $my_domain}),
+    content => epp('lanserver/hosts.epp', {'ip_addr' => $ip_addr, 'hostname' => $my_hostname, 'shortname' => $my_shortname, 'domain' => $my_domain}),
     mode   => '0644',
     owner  => 'root',
     group  => 'root',
@@ -18,7 +18,7 @@ class gameserver::host (
  
   file { "/etc/sysconfig/network-scripts/ifcfg-${network_device}":
     ensure => 'present',
-    content => epp('gameserver/ifcfg-lan.epp', {'ip_addr' => $ip_addr, 'network_device' => $network_device, 'network' => $network, 'netmask' => $netmask}),
+    content => epp('lanserver/ifcfg-lan.epp', {'ip_addr' => $ip_addr, 'network_device' => $network_device, 'network' => $network, 'netmask' => $netmask}),
     mode   => '0644',
     owner  => 'root',
     group  => 'root',
@@ -39,7 +39,7 @@ class gameserver::host (
 
   file { "/usr/local/sbin/add_game.sh":
     ensure => 'present',
-    source => 'puppet:///modules/gameserver/add_game.sh',
+    source => 'puppet:///modules/lanserver/add_game.sh',
     mode   => '0755',
     owner  => 'root',
     group  => 'root',
@@ -47,7 +47,7 @@ class gameserver::host (
 
   file { "/usr/local/sbin/recreate_whitelist.sh":
     ensure => 'present',
-    source => 'puppet:///modules/gameserver/recreate_whitelist.sh',
+    source => 'puppet:///modules/lanserver/recreate_whitelist.sh',
     mode   => '0755',
     owner  => 'root',
     group  => 'root',
@@ -55,7 +55,7 @@ class gameserver::host (
 
   file { "/usr/local/sbin/nat_control.sh":
     ensure => 'present',
-    source => 'puppet:///modules/gameserver/nat_control.sh',
+    source => 'puppet:///modules/lanserver/nat_control.sh',
     mode   => '0755',
     owner  => 'root',
     group  => 'root',

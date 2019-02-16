@@ -1,6 +1,6 @@
 ## apache
 ### prevent welcome bage to load if apache is freshly installed
-class gameserver::httpd (
+class lanserver::httpd (
 ) {
   package { 'httpd':
     ensure        => 'installed',
@@ -19,7 +19,7 @@ class gameserver::httpd (
   
   file { '/etc/httpd/conf/httpd.conf':
     ensure  => 'present',
-    source  => 'puppet:///modules/gameserver/httpd.conf',
+    source  => 'puppet:///modules/lanserver/httpd.conf',
     mode    => '0644',
     owner   => 'root',
     group   => 'root',

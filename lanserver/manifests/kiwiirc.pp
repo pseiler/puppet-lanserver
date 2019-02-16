@@ -1,4 +1,4 @@
-class gameserver::kiwiirc (
+class lanserver::kiwiirc (
   $kiwi_version = "0.9.4",
 ) {
   package { 'npm':
@@ -31,7 +31,7 @@ class gameserver::kiwiirc (
   #configuration file
   file { '/home/kiwi/kiwiirc/config.js':
     ensure  => 'present',
-    source  => "puppet:///modules/gameserver/kiwiirc.js",
+    source  => "puppet:///modules/lanserver/kiwiirc.js",
     mode    => '0644',
     owner   => 'kiwi',
     group   => 'kiwi',
@@ -41,7 +41,7 @@ class gameserver::kiwiirc (
   
   file { '/home/kiwi/kiwiirc/KiwiIRC.tar.gz':
     ensure  => 'present',
-    source  => "puppet:///modules/gameserver/KiwiIRC-v${kiwi_version}.tar.gz",
+    source  => "puppet:///modules/lanserver/KiwiIRC-v${kiwi_version}.tar.gz",
     mode    => '0644',
     owner   => 'kiwi',
     group   => 'kiwi',
@@ -49,7 +49,7 @@ class gameserver::kiwiirc (
   }
   file { '/home/kiwi/deploy_kiwi.sh':
     ensure  => 'present',
-    source  => "puppet:///modules/gameserver/deploy_kiwi.sh",
+    source  => "puppet:///modules/lanserver/deploy_kiwi.sh",
     mode    => '0755',
     owner   => 'kiwi',
     group   => 'kiwi',

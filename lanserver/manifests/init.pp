@@ -1,6 +1,6 @@
 # 
 
-class gameserver (
+class lanserver (
 $enable_hostconfiguration      = true,
 $enable_dnsmasq                = true,
 $enable_vsftpd                 = true,
@@ -11,7 +11,7 @@ $enable_httpd                  = true,
 $enable_webroot                = true,
 $enable_ngircd                 = true,
 $enable_kiwiirc                = true,
-$enable_gameserver_user        = true,
+$enable_gameserver             = false,
 $webroot                       = '/var/www/html',
 $admin_user                    = 'admin',
 $password                      = 'lanparty',
@@ -48,7 +48,7 @@ $tracker_url                   = "http://${my_hostname}.${my_domain}:${tracker_p
   # setting variables for bash scripts
   file { '/etc/sysconfig/lan_server':
     ensure => 'present',
-    content => epp('gameserver/lan_server.conf.epp', {'admin_user' => $admin_user, 'password' => $password, 'watchdir' => "${anon_ftp_root}/upload", 'webroot' => $webroot, 'tracker_url' => $tracker_url, 'torrent_dir' => $torrent_dir, 'template_dir' => $template_dir, 'port' => $transmission_rpc_port, 'fqdn' => "${my_hostname}.${my_domain}",}),
+    content => epp('lanserver/lan_server.conf.epp', {'admin_user' => $admin_user, 'password' => $password, 'watchdir' => "${anon_ftp_root}/upload", 'webroot' => $webroot, 'tracker_url' => $tracker_url, 'torrent_dir' => $torrent_dir, 'template_dir' => $template_dir, 'port' => $transmission_rpc_port, 'fqdn' => "${my_hostname}.${my_domain}",}),
     mode   => '0644',
     owner  => 'root',
     group  => 'root',
@@ -60,7 +60,7 @@ $tracker_url                   = "http://${my_hostname}.${my_domain}:${tracker_p
   ##################
   
   if $enable_hostconfiguration == true {
-    class { '::gameserver::host':
+    class { '::lanserver::host':
       network_device => $network_device,
       ip_addr        => $server_ip,
       my_hostname    => $my_hostname,
@@ -71,7 +71,7 @@ $tracker_url                   = "http://${my_hostname}.${my_domain}:${tracker_p
   }
   
   if $enable_dnsmasq == true {
-    class { '::gameserver::dnsmasq':
+    class { '::lanserver::dnsmasq':
       ip_addr    => $server_ip,
       domain     => $my_domain,
       netmask    => $netmask,
@@ -82,14 +82,14 @@ $tracker_url                   = "http://${my_hostname}.${my_domain}:${tracker_p
   }
   
   if $enable_vsftpd == true {
-    class { '::gameserver::vsftpd':
+    class { '::lanserver::vsftpd':
       anon_ftp_root => $anon_ftp_root,
       ip_addr       => $server_ip,
     }
   }
   
   if $enable_transmission == true {
-    class { '::gameserver::transmission':
+    class { '::lanserver::transmission':
       admin_user  => $admin_user,
       password    => $password,
       ip_addr     => $server_ip,
@@ -100,7 +100,7 @@ $tracker_url                   = "http://${my_hostname}.${my_domain}:${tracker_p
   }
   
   if $enable_opentracker == true {
-    class { '::gameserver::opentracker':
+    class { '::lanserver::opentracker':
       ip_addr         => $server_ip,
       tracker_rootdir => $tracker_rootdir,
       tracker_port    => $tracker_port,
@@ -108,7 +108,7 @@ $tracker_url                   = "http://${my_hostname}.${my_domain}:${tracker_p
   }
  
   if $enable_inotify2announce == true {
-    class { '::gameserver::inotify2announce':
+    class { '::lanserver::inotify2announce':
       admin_user    => $admin_user,
       password      => $password,
       watchdir      => "${anon_ftp_root}/upload",
@@ -119,12 +119,12 @@ $tracker_url                   = "http://${my_hostname}.${my_domain}:${tracker_p
   }
   
   if $enable_httpd == true {
-    class { '::gameserver::httpd':
+    class { '::lanserver::httpd':
     }
   }
   
   if $enable_webroot == true {
-    class { '::gameserver::webroot':
+    class { '::lanserver::webroot':
       webroot      => $webroot,
       my_hostname  => $my_hostname,
       my_domain    => $my_domain,
@@ -133,12 +133,12 @@ $tracker_url                   = "http://${my_hostname}.${my_domain}:${tracker_p
   }
 
   if $enable_kiwiirc == true {
-    class { '::gameserver::kiwiirc':
+    class { '::lanserver::kiwiirc':
     }
   }
 
   if $enable_ngircd == true {
-    class { '::gameserver::ngircd':
+    class { '::lanserver::ngircd':
       ip_addr     => $server_ip,
       my_hostname => $my_hostname,
       my_domain   => $my_domain,
@@ -147,8 +147,8 @@ $tracker_url                   = "http://${my_hostname}.${my_domain}:${tracker_p
     }
   }
 
-  if $enable_gameserver_user == true {
-    class { '::gameserver::gameserver':
+  if $enable_gameserver == true {
+    class { '::lanserver::gameserver':
     }
   }
 

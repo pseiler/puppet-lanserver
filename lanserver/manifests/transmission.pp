@@ -1,4 +1,4 @@
-class gameserver::transmission (
+class lanserver::transmission (
   String $admin_user,
   String $password,
   String $whitelist,
@@ -49,7 +49,7 @@ class gameserver::transmission (
   # transmission configuration file
   file { '/var/lib/transmission/.config/transmission-daemon/settings.json':
     ensure  => 'present',
-    content => epp('gameserver/transmission.json.epp', {'username' => $admin_user, 'password' => $password, 'whitelist' => $whitelist, 'enable_whitelist' => false, 'ip_addr' => $ip_addr, 'rpc_port' => $rpc_port, 'download_dir' => $torrent_dir}),
+    content => epp('lanserver/transmission.json.epp', {'username' => $admin_user, 'password' => $password, 'whitelist' => $whitelist, 'enable_whitelist' => false, 'ip_addr' => $ip_addr, 'rpc_port' => $rpc_port, 'download_dir' => $torrent_dir}),
     mode    => '0600',
     owner   => 'transmission',
     group   => 'transmission',

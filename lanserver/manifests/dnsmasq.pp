@@ -1,4 +1,4 @@
-class gameserver::dnsmasq (
+class lanserver::dnsmasq (
   $ip_addr,
   $domain,
   $netmask,
@@ -14,7 +14,7 @@ class gameserver::dnsmasq (
   ### dnsmasq
   file { '/etc/dnsmasq.conf':
     ensure => 'present',
-    content => epp('gameserver/dnsmasq.conf.epp', {'domain' => $domain, 'ip_addr' => $ip_addr, 'netmask' => $netmask, 'network' => $network, 'dhcp_start' => $dhcp_start, 'dhcp_end' => $dhcp_end,}),
+    content => epp('lanserver/dnsmasq.conf.epp', {'domain' => $domain, 'ip_addr' => $ip_addr, 'netmask' => $netmask, 'network' => $network, 'dhcp_start' => $dhcp_start, 'dhcp_end' => $dhcp_end,}),
     mode   => '0644',
     owner  => 'root',
     group  => 'root',

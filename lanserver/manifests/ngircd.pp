@@ -1,4 +1,4 @@
-class gameserver::ngircd (
+class lanserver::ngircd (
   $my_domain,
   $my_hostname,
   $ip_addr,
@@ -11,7 +11,7 @@ class gameserver::ngircd (
   }
   file { '/etc/ngircd.conf':
     ensure => 'present',
-    content => epp('gameserver/ngircd.conf.epp', {'ip_addr' => $ip_addr, 'domain' => $my_domain, 'hostname' => $my_hostname, 'operator' => $admin_user, 'operator_password' => $password,}),
+    content => epp('lanserver/ngircd.conf.epp', {'ip_addr' => $ip_addr, 'domain' => $my_domain, 'hostname' => $my_hostname, 'operator' => $admin_user, 'operator_password' => $password,}),
     mode   => '0660',
     owner  => 'root',
     group  => 'ngircd',
@@ -19,7 +19,7 @@ class gameserver::ngircd (
   }
   file { '/etc/ngircd.motd':
     ensure => 'present',
-    source => "puppet:///modules/gameserver/ngircd.motd",
+    source => "puppet:///modules/lanserver/ngircd.motd",
     mode   => '0660',
     owner  => 'root',
     group  => 'ngircd',
@@ -30,7 +30,7 @@ class gameserver::ngircd (
 #     #configuration file
 #     file { '/etc/ngircd/ngircd-ipv4.conf':
 #       ensure => 'present',
-#       source => "puppet:///modules/gameserver/ngircd-ipv4.conf",
+#       source => "puppet:///modules/lanserver/ngircd-ipv4.conf",
 #       mode   => '0644',
 #       owner  => 'root',
 #       group  => 'root',

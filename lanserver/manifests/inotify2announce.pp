@@ -1,4 +1,4 @@
-class gameserver::inotify2announce (
+class lanserver::inotify2announce (
   $admin_user,
   $password,
   $watchdir,
@@ -9,7 +9,7 @@ class gameserver::inotify2announce (
  
   file { '/usr/local/sbin/inotify2announce.sh':
     ensure  => 'present',
-    source  => "puppet:///modules/gameserver/inotify2announce.sh",
+    source  => "puppet:///modules/lanserver/inotify2announce.sh",
     mode    => '0755',
     owner   => 'root',
     group   => 'root',
@@ -19,7 +19,7 @@ class gameserver::inotify2announce (
   
   file { '/etc/systemd/system/inotify2announce.service':
     ensure  => 'present',
-    source  => "puppet:///modules/gameserver/inotify2announce.service",
+    source  => "puppet:///modules/lanserver/inotify2announce.service",
     mode    => '0644',
     owner   => 'root',
     group   => 'root',

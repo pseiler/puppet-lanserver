@@ -1,4 +1,4 @@
-class gameserver::vsftpd (
+class lanserver::vsftpd (
   $ip_addr,
   $anon_ftp_root,
 ) {
@@ -9,7 +9,7 @@ class gameserver::vsftpd (
   ## vsftp
   file { '/etc/vsftpd/vsftpd.conf':
     ensure => 'present',
-    content => epp('gameserver/vsftpd.conf.epp', {'ip_addr' => $ip_addr, 'anon_ftp_root' => $anon_ftp_root,}),
+    content => epp('lanserver/vsftpd.conf.epp', {'ip_addr' => $ip_addr, 'anon_ftp_root' => $anon_ftp_root,}),
     mode   => '0600',
     owner  => 'root',
     group  => 'root',
