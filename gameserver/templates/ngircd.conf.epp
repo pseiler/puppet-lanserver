@@ -1,3 +1,10 @@
+<%- | String $hostname,
+      String $domain,
+      String $ip_addr,
+      String $operator,
+      String $operator_password,
+| -%>
+# UNDER PUPPET CONTROL - MODIFICATIONS WILL BE OVERWRITTEN
 #
 # This is a sample configuration file for the ngIRCd IRC daemon, which must
 # be customized to the local preferences and needs.
@@ -31,7 +38,7 @@
 	# ADMIN command. Not required by server but by RFC!
 	AdminInfo1 = LAN Server
 	AdminInfo2 = everywhere
-	AdminEMail = admin@server.lan
+	AdminEMail = admin@<%= $hostname %>.<%= $domain %>
 
 	# Text file which contains the ngIRCd help text. This file is required
 	# to display help texts when using the "HELP <cmd>" command.
@@ -39,13 +46,13 @@
 
 	# Info text of the server. This will be shown by WHOIS and
 	# LINKS requests for example.
-	Info = Server Info Text
+	Info = local hosted IRC server
 
 	# Comma separated list of IP addresses on which the server should
 	# listen. Default values are:
 	# "0.0.0.0" or (if compiled with IPv6 support) "::,0.0.0.0"
 	# so the server listens on all IP addresses of the system by default.
-	Listen = ::,0.0.0.0
+	Listen = <%= $ip_addr %>
 
 	# Text file with the "message of the day" (MOTD). This message will
 	# be shown to all users connecting to the server:
@@ -109,7 +116,7 @@
 
 	# Maximum number of simultaneous connections from a single IP address
 	# the server will accept (0: unlimited):
-	MaxConnectionsIP = 15
+	MaxConnectionsIP = 0
 
 	# Maximum number of channels a user can be member of (0: no limit):
 	MaxJoins = 100
@@ -282,10 +289,10 @@
 	# more than one [Operator] block, one for each local operator.
 
 	# ID of the operator (may be different of the nickname)
-	Name = phils3r
+	Name = <%= $operator %>
 
 	# Password of the IRC operator
-	Password = philsdreier
+	Password = <%= $operator_password %>
 
 	# Optional Mask from which /OPER will be accepted
 	;Mask = *!ident@somewhere.example.com
@@ -372,7 +379,7 @@
 	Name = #home
 
 	# Topic for this channel
-	Topic = Genießt die LAN. Solltet ihr Dateien tauschen wollen, besucht den #filesharing channel. Anonsten schaut in #announce vorbei.
+	Topic = Enjoy the lan party. If you'd like to share data, check out the #filesharing channel. For announces check-out the #announce channel.
 
 	# Initial channel modes
 	# n = no outside messages
@@ -394,12 +401,13 @@
 [Channel]
     Name = #filesharing
     Topic = Tauscht eure Dateien aus. Infos dazu hier: http://server.lan/index.html
+    Topic = Share your files. More information: http://<%= $hostname %>.<%= $domain %>/index.html
     MaxUsers = 0
 	Modes = nftF
 	# More [Channel] sections, if you like ...
 [Channel]
     Name = #announce
-    Topic = Dient zur Informationszwecken
+    Topic = For announcements like ordering pizza and stuff
     MaxUsers = 0
 	Modes = nftFm
 	# More [Channel] sections, if you like ...

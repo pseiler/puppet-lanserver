@@ -1,4 +1,9 @@
 class gameserver::ngircd (
+  $my_domain,
+  $my_hostname,
+  $ip_addr,
+  $admin_user,
+  $password,
 ) {
   package { 'ngircd':
     ensure        => 'installed',
@@ -6,7 +11,7 @@ class gameserver::ngircd (
   }
   file { '/etc/ngircd.conf':
     ensure => 'present',
-    source => "puppet:///modules/gameserver/ngircd.conf",
+    content => epp('gameserver/ngircd.conf.epp', {'ip_addr' => $ip_addr, 'domain' => $my_domain, 'hostname' => $my_hostname, 'operator' => $admin_user, 'operator_password' => $password,}),
     mode   => '0660',
     owner  => 'root',
     group  => 'ngircd',

@@ -139,6 +139,11 @@ $tracker_url                   = "http://${my_hostname}.${my_domain}:${tracker_p
 
   if $enable_ngircd == true {
     class { '::gameserver::ngircd':
+      ip_addr     => $server_ip,
+      my_hostname => $my_hostname,
+      my_domain   => $my_domain,
+      admin_user  => $admin_user,
+      password    => $password,
     }
   }
 
