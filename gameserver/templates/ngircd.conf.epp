@@ -400,7 +400,6 @@
 
 [Channel]
     Name = #filesharing
-    Topic = Tauscht eure Dateien aus. Infos dazu hier: http://server.lan/index.html
     Topic = Share your files. More information: http://<%= $hostname %>.<%= $domain %>/index.html
     MaxUsers = 0
 	Modes = nftF
