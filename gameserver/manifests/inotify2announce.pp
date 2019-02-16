@@ -7,7 +7,7 @@ class gameserver::inotify2announce (
   $tracker_url,
 ) {
  
-  file { '/usr/local/bin/inotify2announce.sh':
+  file { '/usr/local/sbin/inotify2announce.sh':
     ensure  => 'present',
     source  => "puppet:///modules/gameserver/inotify2announce.sh",
     mode    => '0755',
