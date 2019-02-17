@@ -15,3 +15,15 @@ The following components are included
     * monitor the upload directory of the FTP Server and create a torrent from it (inotify2announce)
     * creating a torrent including information on the LAN website (add\_game.sh)
     * cleanup old torrents and whitelist only available torrents from the website
+
+## Features
+* Automatically deploy an environment for a LAN party. Provide all neccesary network services and client tools via http
+* User don't need to have knowledge about creating torrents. They simply create an archive of their software/game and upload it via FTP. The server watches for new completly uploaded files, creates a torrent for it, and adds it to his own torrent client for serving it. 
+
+**ENHANCE ME**
+
+## ToDos
+* interactive bash script to create a hiera template which overwrites parameters from params.pp
+* add mumble server
+* add etherpad
+* rewrite add\_game.sh to use a markup language like xml or use a littel database backend like sqlite

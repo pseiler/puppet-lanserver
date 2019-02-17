@@ -86,6 +86,8 @@ body > div th {
     padding-bottom: 15px;
     color: white;
 }
+
+/* table for the games tab */
 body > div td {
     text-align: center;
     padding: 20px;
