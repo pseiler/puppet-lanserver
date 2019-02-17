@@ -12,6 +12,6 @@ The following components are included
 * IRC Webgui [kiwiirc](https://kiwiirc.com/)
 * [inotify-tools](https://mirrors.edge.kernel.org/pub/linux/kernel/people/rml/inotify/README)
 * self-written bash scripts
-** monitor the upload directory of the FTP Server and create a torrent from it (inotify2announce)
-** creating a torrent including information on the LAN website (add\_game.sh)
-** cleanup old torrents and whitelist only available torrents from the website
+ * monitor the upload directory of the FTP Server and create a torrent from it (inotify2announce)
+ * creating a torrent including information on the LAN website (add\_game.sh)
+ * cleanup old torrents and whitelist only available torrents from the website

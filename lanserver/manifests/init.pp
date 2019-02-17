@@ -32,8 +32,7 @@ $tracker_rootdir               = $::lanserver::params::tracker_rootdir,
 $tracker_port                  = $::lanserver::params::tracker_port,
 $template_dir                  = $::lanserver::params::template_dir,
 $tracker_url                   = $::lanserver::params::tracker_url,
-
-) {
+) inherits ::lanserver::params {
   ### packages to be installed
   package { ['net-tools','bind-utils','mktorrent','inotify-tools','git','wget']:
     ensure        => 'installed',
