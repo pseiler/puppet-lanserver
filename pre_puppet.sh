@@ -13,3 +13,9 @@ echo "#!/bin/bash" > /etc/profile.d/puppet.csh
 echo "PATH=\"\${PATH}:/opt/puppetlabs/puppet/bin\"" >> /etc/profile.d/puppet.csh
 
 puppet apply --modulepath=/usr/share/puppet/modules/:$(pwd) -e "include lanserver"
+
+if [ $? -eq 0 ]
+then
+    echo "Now you can use this command to update your client without running the script:"
+    echo "puppet apply --modulepath=/usr/share/puppet/modules/:$(pwd) -e \"include lanserver\""
+fi

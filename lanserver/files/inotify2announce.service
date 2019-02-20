@@ -4,7 +4,7 @@ Description=inotify 2 torrent tracker announce watchdog
 [Service]
 Type=simple
 EnvironmentFile=-/etc/sysconfig/lan_server
-ExecStart=/usr/local/sbin/inotify2announce.sh $WATCHDIR $TORRENT_ROOT $WEB_ROOT $TRACKER_URL $USER $PASSWORD
+ExecStart=/usr/local/sbin/inotify2announce.sh $WATCHDIR $TORRENT_ROOT $WEB_ROOT $USER $PASSWORD $TRACKER_URL $ALTERNATE_URL
 ExecReload=/bin/kill -SIGHUP ${MAINPID}
 
 [Install]

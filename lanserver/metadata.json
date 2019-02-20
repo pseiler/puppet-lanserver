@@ -1,0 +1,78 @@
+{
+  "name": "puppet-lanserver",
+  "version": "0.0.1",
+  "author": "Philipp Seiler",
+  "summary": "Installs, configures, and manage several components for a lan party.",
+  "license": "GPL-3.0",
+  "source": "https://github.com/pseiler/puppet-lanserver",
+  "project_page": "-",
+  "issues_url": "https://github.com/pseiler/puppet-lanserver/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.13.1 < 6.0.0"
+    },
+    {
+      "name": "puppetlabs/concat",
+      "version_requirement": ">= 2.2.1 < 6.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "OracleLinux",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Scientific",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "SLES",
+      "operatingsystemrelease": [
+        "11 SP1",
+        "12",
+        "15"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "14.04",
+        "16.04",
+        "18.04"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.7.0 < 7.0.0"
+    }
+  ],
+  "description": "Module for Apache configuration",
+  "pdk-version": "1.9.0",
+  "template-url": "https://github.com/puppetlabs/pdk-templates/",
+  "template-ref": "1.9.0-0-g7281db5"
+}

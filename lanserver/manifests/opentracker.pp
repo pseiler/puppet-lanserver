@@ -1,3 +1,11 @@
+# Class lanserver::opentracker
+#
+# This class installs the opentracker BiTorrent
+# tracker software including a config file to
+# the system.
+#
+
+
 class lanserver::opentracker (
   $ip_addr,
   $tracker_rootdir,

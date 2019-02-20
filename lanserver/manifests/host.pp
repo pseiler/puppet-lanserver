@@ -60,4 +60,11 @@ class lanserver::host (
     owner  => 'root',
     group  => 'root',
   }
+  file { "/usr/local/sbin/lanserver":
+    ensure => 'present',
+    source => 'puppet:///modules/lanserver/lanserver.sh',
+    mode   => '0755',
+    owner  => 'root',
+    group  => 'root',
+  }
 }

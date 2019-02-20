@@ -2,9 +2,10 @@
 WATCH_DIR="${1}"
 TORRENT_ROOT="${2}"
 WEB_ROOT="${3}"
-TRACKER_URL="${4}"
-TRANSMISSION_USER="${5}"
-TRANSMISSION_PASSWD="${6}"
+TRANSMISSION_USER="${4}"
+TRANSMISSION_PASSWD="${5}"
+TRACKER_URL="${6}"
+ALTERNATE_URL="${7}"
 
 if [ -z ${TORRENT_ROOT} ];
 then
@@ -32,6 +33,10 @@ do
     mv "${WATCH_DIR}/${FILE}" "${TORRENT_ROOT}/"
     chown transmission:transmission "${TORRENT_ROOT}/${FILE}"
     transmission-create -t "$TRACKER_URL" -o "${TORRENT_ROOT}/${FILE}.torrent" "${TORRENT_ROOT}/${FILE}"
+    if [ ! -z ${ALTERNATE_URL} ]
+    then
+        transmission-edit "${TORRENT_ROOT}/${FILE}.torrent" -a "${ALTERNATE_URL}"
+    fi
     MY_HASH=$(transmission-show "${TORRENT_ROOT}/${FILE}.torrent" | grep Hash | xargs | cut -d" " -f2)
     echo "$MY_HASH" >> /var/opentracker/whitelist
     systemctl reload opentracker-ipv4.service

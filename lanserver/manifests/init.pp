@@ -31,6 +31,7 @@ $torrent_dir                   = $::lanserver::params::torrent_dir,
 $tracker_rootdir               = $::lanserver::params::tracker_rootdir,
 $tracker_port                  = $::lanserver::params::tracker_port,
 $tracker_url                   = $::lanserver::params::tracker_url,
+$alternate_url                 = $::lanserver::params::alternate_url,
 $template_dir                  = $::lanserver::params::template_dir,
 ) inherits ::lanserver::params {
   ### packages to be installed
@@ -47,7 +48,7 @@ $template_dir                  = $::lanserver::params::template_dir,
   # setting variables for bash scripts
   file { '/etc/sysconfig/lan_server':
     ensure => 'present',
-    content => epp('lanserver/lan_server.conf.epp', {'admin_user' => $admin_user, 'password' => $password, 'watchdir' => "${anon_ftp_root}/upload", 'webroot' => $webroot, 'tracker_url' => $tracker_url, 'torrent_dir' => $torrent_dir, 'template_dir' => $template_dir, 'port' => $transmission_rpc_port, 'fqdn' => "${my_hostname}.${my_domain}",}),
+    content => epp('lanserver/lan_server.conf.epp', {'admin_user' => $admin_user, 'password' => $password, 'watchdir' => "${anon_ftp_root}/upload", 'webroot' => $webroot, 'tracker_url' => $tracker_url, 'torrent_dir' => $torrent_dir, 'template_dir' => $template_dir, 'port' => $transmission_rpc_port, 'fqdn' => "${my_hostname}.${my_domain}", 'alternate_url' => $alternate_url,}),
     mode   => '0644',
     owner  => 'root',
     group  => 'root',

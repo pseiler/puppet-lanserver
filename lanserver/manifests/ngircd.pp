@@ -1,3 +1,10 @@
+# Class lanserver::ngircd
+#
+# This class installs and configures a local ngircd server to
+# instanst messaging on the lan party. Especially usefull for
+# bigger lan environments.
+#
+
 class lanserver::ngircd (
   $my_domain,
   $my_hostname,

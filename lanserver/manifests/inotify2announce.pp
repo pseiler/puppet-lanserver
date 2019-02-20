@@ -1,3 +1,16 @@
+# Class lanserver::inotify2announce
+#
+# This class deploys a self written bash "watchdog" which
+# waits for file write finishes in the configured directory.
+# Files in this directory will be moved to the torrent clients directory
+# and a *.torrent will be made for it.
+# This file will be added the torrent to the clients
+# directory, and moved to the webserver in the /upload
+# directory.
+#
+# The watchdog can controlled by systemd. the service name is
+# "inotify2announce"
+
 class lanserver::inotify2announce (
   $admin_user,
   $password,
