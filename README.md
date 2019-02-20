@@ -43,6 +43,11 @@ This lanserver features serveral type of services.
 To have an easy overview if everything is running,
 run ``lanserver status`` on the command line
 
+## Controlling services
+Every service running is controlled by systemd.
+Check the specific service or use the controller script
+"lanserver" to start or stop all lanserver services.
+
 **ENHANCE ME**
 
 ## ToDos
@@ -50,4 +55,5 @@ run ``lanserver status`` on the command line
 * add mumble server
 * add etherpad
 * add kiwiirc to autostart via systemd
-* rewrite add\_game.sh to use a markup language like xml or use a littel database backend like sqlite
+* rewrite add\_game.sh to use a markup language like xml or use a little database backend like sqlite
+* let the "lanserver" script enable NAT and disable it again, when it's running
