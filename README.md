@@ -34,7 +34,7 @@ The following components are included
 1. Download the code to your server. For example with git.``git clone https://github.com/pseiler/puppet-lanserver``
 1. Change into the puppet module directory ``cd lanserver/manifests``
 1. Edit the params.pp to the values you like. This includes the admin account name and password, the server configuration, the device you want to configure your listening services, ...
-1. Change back into the puppet-lanserver directory. Run ``bash pre_puppet.sh``
+1. Change back into the puppet-lanserver directory. Run ``bash pre_puppet.sh`` as root.
 1. If the script run successfully, Every server component should be installed and running. It adds all neccessary repositories and runs puppet serverless via "puppet apply".
 1. Now you can simply update your configuration with the command from output from "bash pre\_puppet.sh"
 
