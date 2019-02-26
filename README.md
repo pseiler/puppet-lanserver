@@ -20,7 +20,7 @@ The following components are included
 * Automatically deploy an environment for a LAN party. Provide all neccesary network services and client tools via http
 * User don't need to have knowledge about creating torrents. They simply create an archive of their software/game and upload it via FTP. The server watches for new completly uploaded files, creates a torrent for it, and adds it to his own torrent client for serving it. Then it puts the torrent file to the webservers /upload directory.
 * Create your own Games list with an simple bash script *add\_game.sh*. It automatically generates an entry in your websergers */games.html*.
-  The template directory for every game is located in "/var/www/template".
+  The template directory for every game is located in */var/www/template*.
 
 ## Requirements
 * **CentOS** >= 7, Other distributions will be supported in the future.
