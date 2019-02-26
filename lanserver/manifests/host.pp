@@ -37,14 +37,6 @@ class lanserver::host (
     match  => '^SELINUX=',
   }
 
-  file { "/usr/local/sbin/add_game.sh":
-    ensure => 'present',
-    source => 'puppet:///modules/lanserver/add_game.sh',
-    mode   => '0755',
-    owner  => 'root',
-    group  => 'root',
-  }
-
   file { "/usr/local/sbin/recreate_whitelist.sh":
     ensure => 'present',
     source => 'puppet:///modules/lanserver/recreate_whitelist.sh',

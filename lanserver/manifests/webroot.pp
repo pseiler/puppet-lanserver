@@ -8,7 +8,25 @@ class lanserver::webroot (
   $my_domain,
   $my_hostname,
   $template_dir,
+  Boolean $enable_kiwiirc,
+  Enum['en','de'] $lang
 ) {
+  # setting names of the html header according to language
+  if $lang == 'de' {
+    $header_home   = 'Hauptseite'
+    $header_games  = 'Spiele'
+    $header_tools  = 'Programme'
+    $header_upload = 'Uploads'
+    $index_title   = 'Einstieg'
+  } else {
+    $header_home   = 'Home'
+    $header_games  = 'Games'
+    $header_tools  = 'Tools'
+    $header_upload = 'Uploads'
+    $index_title   = 'Introduction'
+  }
+
+
   ## directory where the supported games are located
   file { "${webroot}/torrent":
     ensure  => 'directory',
@@ -17,38 +35,73 @@ class lanserver::webroot (
     group   => 'apache',
     require => Package['httpd'],
   }
+  ### index.html
+  concat { "${webroot}/index.html":
+    mode    => '0644',
+    owner   => 'apache',
+    group   => 'apache',
+  }
+
+  concat::fragment { 'index_header':
+    target  => "${webroot}/index.html",
+    content => epp('lanserver/header.html.epp', {'hostname' => $my_hostname, 'domain' => $my_domain, 'title' => $index_title, 'enable_kiwiirc' => $enable_kiwiirc, 'home' => $header_home, 'games' => $header_games, 'tools' => $header_tools, 'upload' => $header_upload,}),
+    order   => 01,
+  }
+
+  concat::fragment { 'index_content':
+    target => "${webroot}/index.html",
+    source => "puppet:///modules/lanserver/webroot/${lang}/index.html",
+    order  => 02,
+  }
+
+  ## tech.html
+  concat { "${webroot}/tech.html":
+    ensure  => 'present',
+    mode    => '0644',
+    owner   => 'apache',
+    group   => 'apache',
+  }
+  
+  concat::fragment { 'tech_header':
+    target  => "${webroot}/tech.html",
+    content => epp('lanserver/header.html.epp', {'hostname' => $my_hostname, 'domain' => $my_domain, 'title' => 'Tech', 'enable_kiwiirc' => $enable_kiwiirc, 'home' => $header_home, 'games' => $header_games, 'tools' => $header_tools, 'upload' => $header_upload,}),
+    order   => 01,
+  }
+
+  concat::fragment { "${webroot}/tech.html":
+    target  => "${webroot}/tech.html",
+    source => "puppet:///modules/lanserver/webroot/${lang}/tech.html",
+    order  => 02,
+  }
+  ## torrent.thml
+  concat { "${webroot}/torrent.html":
+    ensure  => 'present',
+    mode    => '0644',
+    owner   => 'apache',
+    group   => 'apache',
+  }
+  
+  concat::fragment { 'torrent_header':
+    target  => "${webroot}/torrent.html",
+    content => epp('lanserver/header.html.epp', {'hostname' => $my_hostname, 'domain' => $my_domain, 'title' => 'BitTorrent', 'enable_kiwiirc' => $enable_kiwiirc, 'home' => $header_home, 'games' => $header_games, 'tools' => $header_tools, 'upload' => $header_upload,}),
+    order   => 01,
+  }
+
+  concat::fragment { "${webroot}/torrent.html":
+    target  => "${webroot}/torrent.html",
+    source => "puppet:///modules/lanserver/webroot/${lang}/torrent.html",
+    order  => 02,
+  }
   
   ### header file for directory listing
   file { "${webroot}/header.html":
     ensure  => 'present',
-    content => epp('lanserver/header.html.epp', {'hostname' => $my_hostname, 'domain' => $my_domain, 'title' => 'Files',}),
+    content => epp('lanserver/header.html.epp', {'hostname' => $my_hostname, 'domain' => $my_domain, 'title' => 'Files', 'enable_kiwiirc' => $enable_kiwiirc, 'home' => $header_home, 'games' => $header_games, 'tools' => $header_tools, 'upload' => $header_upload,}),
     mode    => '0644',
     owner   => 'apache',
     group   => 'apache',
   }
-  ### index.html
-  file { "${webroot}/index.html":
-    ensure  => 'present',
-    source  => "puppet:///modules/lanserver/webroot/index.html",
-    mode    => '0644',
-    owner   => 'apache',
-    group   => 'apache',
-  }
-  file { "${webroot}/technik.html":
-    ensure  => 'present',
-    source  => "puppet:///modules/lanserver/webroot/technik.html",
-    mode    => '0644',
-    owner   => 'apache',
-    group   => 'apache',
-  }
-  
-  file { "${webroot}/torrent.html":
-    ensure  => 'present',
-    source  => "puppet:///modules/lanserver/webroot/torrent.html",
-    mode    => '0644',
-    owner   => 'apache',
-    group   => 'apache',
-  }
+
   ## stylesheet
   file { "${webroot}/stylesheet.css":
     ensure  => 'present',
@@ -82,7 +135,6 @@ class lanserver::webroot (
     group   => 'apache',
   }
  ## required directories and files to create the template structure for supported games required by add_game.sh
- ## add_game.sh should probably be here instead of host.pp
   file { $template_dir:
     ensure  => 'directory',
     mode    => '0755',
@@ -97,7 +149,7 @@ class lanserver::webroot (
   }
   file { "${template_dir}/header.html":
     ensure  => 'present',
-   content => epp('lanserver/header.html.epp', {'hostname' => $my_hostname, 'domain' => $my_domain, 'title' => 'Games',}),
+   content => epp('lanserver/header.html.epp', {'hostname' => $my_hostname, 'domain' => $my_domain, 'title' => 'Games', 'enable_kiwiirc' => $enable_kiwiirc, 'home' => $header_home, 'games' => $header_games, 'tools' => $header_tools, 'upload' => $header_upload,}),
     mode    => '0644',
     owner   => 'apache',
     group   => 'apache',
@@ -109,7 +161,23 @@ class lanserver::webroot (
     owner   => 'apache',
     group   => 'apache',
   }
-  
+ 
+  file { "/usr/local/sbin/add_game.sh":
+    ensure => 'present',
+    source => 'puppet:///modules/lanserver/add_game.sh',
+    mode   => '0755',
+    owner  => 'root',
+    group  => 'root',
+  }
+ 
+  file { "/usr/local/sbin/games_reindex.sh":
+    ensure => 'present',
+    source => 'puppet:///modules/lanserver/games_reindex.sh',
+    mode   => '0755',
+    owner  => 'root',
+    group  => 'root',
+  }
+ 
 
 ###########################################
 # Generic tools needed to run a lan party #

@@ -144,6 +144,7 @@ if ($::operatingsystem == 'SLES') {
 } else {
     $webroot                       = '/var/www/html'
 }
+$lang                          = 'en'
 $admin_user                    = 'admin'
 $password                      = 'lanparty'
 $server_ip                     = '10.20.0.1'

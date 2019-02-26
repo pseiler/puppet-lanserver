@@ -5,13 +5,15 @@ $enable_hostconfiguration      = $::lanserver::params::enable_hostconfiguration,
 $enable_dnsmasq                = $::lanserver::params::enable_dnsmasq,
 $enable_vsftpd                 = $::lanserver::params::enable_vsftpd,
 $enable_transmission           = $::lanserver::params::enable_transmission,
-$enable_inotify2announce       = $::lanserver::params::enable_kiwiirc,
+$enable_inotify2announce       = $::lanserver::params::enable_inotify2announce,
 $enable_opentracker            = $::lanserver::params::enable_opentracker,
 $enable_httpd                  = $::lanserver::params::enable_httpd,
 $enable_webroot                = $::lanserver::params::enable_webroot,
 $enable_ngircd                 = $::lanserver::params::enable_ngircd,
 $enable_kiwiirc                = $::lanserver::params::enable_kiwiirc,
 $enable_gameserver             = $::lanserver::params::enable_gameserver,
+
+$lang                          = $::lanserver::params::lang,
 $webroot                       = $::lanserver::params::webroot,
 $admin_user                    = $::lanserver::params::admin_user,
 $password                      = $::lanserver::params::password,
@@ -125,10 +127,12 @@ $template_dir                  = $::lanserver::params::template_dir,
   
   if $enable_webroot == true {
     class { '::lanserver::webroot':
-      webroot      => $webroot,
-      my_hostname  => $my_hostname,
-      my_domain    => $my_domain,
-      template_dir => $template_dir,
+      webroot        => $webroot,
+      my_hostname    => $my_hostname,
+      my_domain      => $my_domain,
+      template_dir   => $template_dir,
+      enable_kiwiirc => $enable_kiwiirc,
+      lang           => $lang,
     }
   }
 
