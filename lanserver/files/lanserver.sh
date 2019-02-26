@@ -33,12 +33,12 @@ case "${1}" in
                 echo -e "\"${i}\" is \e[32mrunning\e[39m.";
             else
                 echo -e "\"${i}\" is \e[31mnot running\e[39m."
-                ERROR=1
+                ERROR=1;
             fi;
         done;
         ;;
     *)
-        echo "Not a supported command. The following are supported:";
+        echo "Not a supported command. The following commands are supported:";
         echo "$0 start|stop|status";
         ;;
 esac

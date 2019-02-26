@@ -28,10 +28,10 @@ The following components are included
 * an internet connection (to install the packages from the bash script).
 * Enough disk space for the torrent contents. Depends on how much you want
   to serve
-
+Everything data-related is located somewhere in ***/var*** by default. So it' recommended that you add an additional partition mounted on ***/var***.
 
 ## Usage
-1. Download the code to your server. For example with git.``git clone https://github.com/pseiler/puppet-lanserver``
+1. Download the code to your server. For example with git.``git clone --recursive https://github.com/pseiler/puppet-lanserver``
 1. Change into the puppet module directory ``cd lanserver/manifests``
 1. Edit the params.pp to the values you like. This includes the admin account name and password, the server configuration, the device you want to configure your listening services, ...
 1. Change back into the puppet-lanserver directory. Run ``bash pre_puppet.sh`` as root.
@@ -42,18 +42,37 @@ The following components are included
 This lanserver features serveral type of services.
 To have an easy overview if everything is running,
 run ``lanserver status`` on the command line
+To stop/start everything use
+``lanserver start``
+or
+``lanserver stop``
 
 ## Controlling services
 Every service running is controlled by systemd.
 Check the specific service or use the controller script
 "lanserver" to start or stop all lanserver services.
 
-**ENHANCE ME**
+## Add Games to games.html
+To add a new game, or just add a new plattform for a game, just run ``game_add.sh``. You can find every parameter of the script when calling it with the **-h** parameter.
+Every parameter except **-f** is optional and will be asked interactively.
+
+The snippet files you generated with this script are located in ****/var/www/template*** by default. It's a bit ugly but perhaps this part will be rewritten with a database-like backend.
+If needed, you can modify the \*.html snippets with the editor of your choice.
+If you have changed something manually in in a html snippet in ***/var/www/template*** just run ``games_reindex.sh`` to create a new ***games.html*** in the webservers directory.
+
+
+## Forwarding Internet from another device
+If your device has two interfaces, you can use a bash script called ``nat_control.sh`` to enable NAT forwarding/masquerading to the LAN network.
+It only has two options (enable/disable) and when calling it with ***enable*** you must provide the device which has internet access.
+Example:
+```bash
+root# nat_control.sh enable eth1
+```
 
 ## ToDos
 * interactive bash script to create a hiera template which overwrites parameters from params.pp
 * add mumble server
-* add etherpad
+* add etherpad support
 * add kiwiirc to autostart via systemd
 * rewrite add\_game.sh to use a markup language like xml or use a little database backend like sqlite
 * let the "lanserver" script enable NAT and disable it again, when it's running
