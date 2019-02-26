@@ -54,7 +54,7 @@ Check the specific service or use the controller script
 
 ## Add Games to games.html
 To add a new game, or just add a new plattform for a game, just run ``game_add.sh``. You can find every parameter of the script when calling it with the **-h** parameter.
-Every parameter except **-f** is optional and will be asked interactively.
+Every parameter except **-f** is optional and will be asked interactively. The file or directory must already exist somewhere on this server. So you need to transfer the game/application file or directory manually via scp or something else.
 
 The snippet files you generated with this script are located in */var/www/template* by default. It's a bit ugly but perhaps this part will be rewritten with a database-like backend.
 If needed, you can modify the \*.html snippets with the editor of your choice.
@@ -77,3 +77,4 @@ root# nat_control.sh enable eth1
 * rewrite *add\_game.sh* to use a markup language like *.xml* or use a little database backend like sqlite
 * let the "lanserver" script enable NAT and disable it again, when it's running
 * Make code more portable to support more distributions like Debian, Ubuntu and openSUSE
+* Support other solutions for the admin to upload a game to the server except ssh/scp. Something like uploading a file/directory via non-anonymous ftp user.
