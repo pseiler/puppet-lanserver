@@ -1,3 +1,6 @@
 [submodule "concat"]
 	path = concat
 	url = https://github.com/puppetlabs/puppetlabs-concat.git
+[submodule "translate"]
+	path = translate
+	url = https://github.com/puppetlabs/puppetlabs-translate
