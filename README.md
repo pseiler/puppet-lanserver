@@ -19,16 +19,16 @@ The following components are included
 ## Features
 * Automatically deploy an environment for a LAN party. Provide all neccesary network services and client tools via http
 * User don't need to have knowledge about creating torrents. They simply create an archive of their software/game and upload it via FTP. The server watches for new completly uploaded files, creates a torrent for it, and adds it to his own torrent client for serving it. Then it puts the torrent file to the webservers /upload directory.
-* Create your own Games list with an simple bash script "add\_game.sh". It automatically generates an entry in your websergers /games,html.
+* Create your own Games list with an simple bash script *add\_game.sh*. It automatically generates an entry in your websergers */games.html*.
   The template directory for every game is located in "/var/www/template".
 
 ## Requirements
-* CentOS >= 7, Other distributions will be supported in the future.
-* Puppet >= 4, The install script for CentOS/RHEL will include puppet 5.
+* **CentOS** >= 7, Other distributions will be supported in the future.
+* **Puppet** >= 4, The install script for CentOS/RHEL will include puppet 5.
 * an internet connection (to install the packages from the bash script).
 * Enough disk space for the torrent contents. Depends on how much you want
   to serve
-Everything data-related is located somewhere in ***/var*** by default. So it' recommended that you add an additional partition mounted on ***/var***.
+Everything data-related is located somewhere in ***/var*** by default. So it's recommended that you add an additional partition mounted on ***/var***.
 
 ## Usage
 1. Download the code to your server. For example with git.``git clone --recursive https://github.com/pseiler/puppet-lanserver``
@@ -56,9 +56,9 @@ Check the specific service or use the controller script
 To add a new game, or just add a new plattform for a game, just run ``game_add.sh``. You can find every parameter of the script when calling it with the **-h** parameter.
 Every parameter except **-f** is optional and will be asked interactively.
 
-The snippet files you generated with this script are located in ****/var/www/template*** by default. It's a bit ugly but perhaps this part will be rewritten with a database-like backend.
+The snippet files you generated with this script are located in */var/www/template* by default. It's a bit ugly but perhaps this part will be rewritten with a database-like backend.
 If needed, you can modify the \*.html snippets with the editor of your choice.
-If you have changed something manually in in a html snippet in ***/var/www/template*** just run ``games_reindex.sh`` to create a new ***games.html*** in the webservers directory.
+If you have changed something manually in in a html snippet in */var/www/template* just run ``games_reindex.sh`` to create a new *games.html* in the webservers directory.
 
 
 ## Forwarding Internet from another device
@@ -74,5 +74,6 @@ root# nat_control.sh enable eth1
 * add mumble server
 * add etherpad support
 * add kiwiirc to autostart via systemd
-* rewrite add\_game.sh to use a markup language like xml or use a little database backend like sqlite
+* rewrite *add\_game.sh* to use a markup language like *.xml* or use a little database backend like sqlite
 * let the "lanserver" script enable NAT and disable it again, when it's running
+* Make code more portable to support more distributions like Debian, Ubuntu and openSUSE
