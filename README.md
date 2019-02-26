@@ -36,7 +36,7 @@ Everything data-related is located somewhere in ***/var*** by default. So it's r
 1. Edit the params.pp to the values you like. This includes the admin account name and password, the server configuration, the device you want to configure your listening services, ...
 1. Change back into the puppet-lanserver directory. Run ``bash pre_puppet.sh`` as root.
 1. If the script run successfully, Every server component should be installed and running. It adds all neccessary repositories and runs puppet serverless via "puppet apply".
-1. Now you can simply update your configuration with the command from output from "bash pre\_puppet.sh"
+1. Now you can simply update your configuration with the outputted command from ``bash pre_puppet.sh``
 
 ## Verifying everything is running
 This lanserver features serveral type of services.
