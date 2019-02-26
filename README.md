@@ -38,6 +38,13 @@ Everything data-related is located somewhere in ***/var*** by default. So it's r
 1. If the script run successfully, Every server component should be installed and running. It adds all neccessary repositories and runs puppet serverless via "puppet apply".
 1. Now you can simply update your configuration with the outputted command from ``bash pre_puppet.sh``
 
+## Setting the language
+The lanserver website is currently available in two languages.
+To switch it edit the *lanserver/manifests/params.pp* **lang** parameter and reapply the module to the server.
+### translate the website
+If you want to translate the website, copy the *en* directory in *lanserver/files/webroot/* and translate the whole content of *index.html*, *torrent.html* and *tech.html*.
+***FIXME - add info for changing titles in puppet webroot.pp***
+
 ## Verifying everything is running
 This lanserver features serveral type of services.
 To have an easy overview if everything is running,
@@ -78,3 +85,4 @@ root# nat_control.sh enable eth1
 * let the "lanserver" script enable NAT and disable it again, when it's running
 * Make code more portable to support more distributions like Debian, Ubuntu and openSUSE
 * Support other solutions for the admin to upload a game to the server except ssh/scp. Something like uploading a file/directory via non-anonymous ftp user.
+* search for a better solution to translate titles of the website in webroot.pp. Consider a own class containting the language variables or something.
