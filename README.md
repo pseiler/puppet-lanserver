@@ -27,7 +27,8 @@ The following components are included
 * **Puppet** >= 4, The install script for CentOS/RHEL will include puppet 5.
 * an internet connection (to install the packages from the bash script).
 * Enough disk space for the torrent contents. Depends on how much you want
-  to serve
+  to serve.
+
 Everything data-related is located somewhere in ***/var*** by default. So it's recommended that you add an additional partition mounted on ***/var***.
 
 ## Usage
