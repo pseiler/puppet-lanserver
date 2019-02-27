@@ -13,12 +13,13 @@ The following components are included
 * [inotify-tools](https://mirrors.edge.kernel.org/pub/linux/kernel/people/rml/inotify/README)
 * self-written bash scripts
     * monitor the upload directory of the FTP Server and create a torrent from it (inotify2announce)
-    * creating a torrent including information on the LAN website (add\_game.sh)
+    * creating a torrent including information on the LAN website (``add_game.sh``)
     * cleanup old torrents and whitelist only available torrents from the website
 
 ## Features
 * Automatically deploy an environment for a LAN party. Provide all neccesary network services and client tools via http
-* User don't need to have knowledge about creating torrents. They simply create an archive of their software/game and upload it via FTP. The server watches for new completly uploaded files, creates a torrent for it, and adds it to his own torrent client for serving it. Then it puts the torrent file to the webservers /upload directory.
+* Share prepared games via torrent. Use a easy-to-use script ``add_game.sh``to create an entry in your websergers */games.html* and add a local file or **directory**.
+* Users can upload an archive via FTP and the server creates a **torrent** file for it and shares the content with with it's own client.
 * Create your own Games list with an simple bash script *add\_game.sh*. It automatically generates an entry in your websergers */games.html*.
   The template directory for every game is located in */var/www/template*.
 
@@ -31,6 +32,20 @@ The following components are included
 
 Everything data-related is located somewhere in ***/var*** by default. So it's recommended that you add an additional partition mounted on ***/var***.
 
+### Caution
+Please don't start the dnsmasq server in a network, which already has a DHCP server. Things could go wrong.
+And the hole torrent tracker part doesn't working without DNS.
+
+## Setting the language
+The lanserver website is currently available in two languages.
+To switch it edit the *lanserver/manifests/params.pp* **lang** parameter and reapply the module to the server.
+### translate the website
+If you want to translate the website, copy the *en* directory in *lanserver/files/webroot/* and translate the whole content of *index.html*, *torrent.html* and *tech.html*.
+You also need to add language vars to *lanserver/manifests/webroot.pp* for your specific language code. Two letters are allowed.
+
+## Enable or disable specific services
+Every service mentioned above can be managed independently. Enable or disable the services via *lanserver/manifests/params,pp*
+
 ## Usage
 1. Download the code to your server. For example with git.``git clone --recursive https://github.com/pseiler/puppet-lanserver``
 1. Change into the puppet module directory ``cd lanserver/manifests``
@@ -38,13 +53,6 @@ Everything data-related is located somewhere in ***/var*** by default. So it's r
 1. Change back into the puppet-lanserver directory. Run ``bash pre_puppet.sh`` as root.
 1. If the script run successfully, Every server component should be installed and running. It adds all neccessary repositories and runs puppet serverless via "puppet apply".
 1. Now you can simply update your configuration with the outputted command from ``bash pre_puppet.sh``
-
-## Setting the language
-The lanserver website is currently available in two languages.
-To switch it edit the *lanserver/manifests/params.pp* **lang** parameter and reapply the module to the server.
-### translate the website
-If you want to translate the website, copy the *en* directory in *lanserver/files/webroot/* and translate the whole content of *index.html*, *torrent.html* and *tech.html*.
-***FIXME - add info for changing titles in puppet webroot.pp***
 
 ## Verifying everything is running
 This lanserver features serveral type of services.
@@ -71,7 +79,8 @@ If you have changed something manually in in a html snippet in */var/www/templat
 
 ## Forwarding Internet from another device
 If your device has two interfaces, you can use a bash script called ``nat_control.sh`` to enable NAT forwarding/masquerading to the LAN network.
-It only has two options (enable/disable) and when calling it with ***enable*** you must provide the device which has internet access.
+It only has two options (enable/disable) and when calling it with ***enable*** you must provide the device which has internet access. It depends on your configuration of interfaces.
+
 Example:
 ```bash
 root# nat_control.sh enable eth1
@@ -82,7 +91,8 @@ root# nat_control.sh enable eth1
 * add mumble server
 * add etherpad support
 * add kiwiirc to autostart via systemd
-* rewrite *add\_game.sh* to use a markup language like *.xml* or use a little database backend like sqlite
+* rewrite ``add_game.sh`` to use a markup language like *.xml* or use a little database backend like sqlite
+* add a list/searching feature to ``add_game.sh``. Output html snipet when found.
 * let the "lanserver" script enable NAT and disable it again, when it's running
 * Make code more portable to support more distributions like Debian, Ubuntu and openSUSE
 * Support other solutions for the admin to upload a game to the server except ssh/scp. Something like uploading a file/directory via non-anonymous ftp user.
