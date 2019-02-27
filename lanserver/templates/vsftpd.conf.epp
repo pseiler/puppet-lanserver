@@ -132,7 +132,7 @@ local_enable=NO
 
 #anon_umask=011
 anon_upload_enable=YES
-# prevent uploading files (does not work with inotify script)
+# prevent uploading directory for the anonymous user (does not work with inotify script)
 anon_mkdir_write_enable=NO
 # ensure that the anonymous changeroot is writable in general
 
