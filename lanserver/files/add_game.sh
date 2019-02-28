@@ -29,8 +29,12 @@ check_plattform() {
         then
             MY_PLATTFORM="MacOS";
             CLICK_CLACK=0;
+        elif [[ ${MY_INPUT,,} =~ "multi" ]]
+        then
+            MY_PLATTFORM="Multi";
+            CLICK_CLACK=0;
         else
-            echo "Only Windows, Linux, MacOS supported";
+            echo "Only Windows, Linux, MacOS and Multi supported";
             echo "Please try again.";
             read MY_INPUT;
         fi;
@@ -213,7 +217,7 @@ echo "</tr>" >> ${TEMPLATE_DIR}/${GAME_STRIPPED}_base.html;
 cat ${TEMPLATE_DIR}/${GAME_STRIPPED}_base.html >> ${TEMPLATE_DIR}/game_${GAME_STRIPPED}.html;
 rm ${TEMPLATE_DIR}/${GAME_STRIPPED}_base.html
 
-for i in Windows Linux MacOS;
+for i in Windows Linux MacOS Multi;
 do
     if [ -f "${TEMPLATE_DIR}/${GAME_STRIPPED}_${i}.html" ];
     then
