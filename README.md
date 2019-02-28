@@ -98,3 +98,4 @@ root# nat_control.sh enable eth1
 * Make code more portable to support more distributions like Debian, Ubuntu and openSUSE
 * Support other solutions for the admin to upload a game to the server except ssh/scp. Something like uploading a file/directory via non-anonymous ftp user.
 * search for a better solution to translate titles of the website in webroot.pp. Consider a own class containting the language variables or something.
+* Add information about bridging from a vm
