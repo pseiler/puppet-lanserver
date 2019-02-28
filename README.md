@@ -49,7 +49,7 @@ Every service mentioned above can be managed independently. Enable or disable th
 ## Usage / Installation
 1. Download the code to your server. For example with git.``git clone --recursive https://github.com/pseiler/puppet-lanserver``
 1. Change into the puppet module directory ``cd lanserver/manifests``
-1. Edit the **lanserver/manifests/params.pp** to the values you like. This includes the admin account name and password, the server configuration, the device you want to configure your listening services, ...
+1. Edit the **lanserver/manifests/params.pp** to the values you like. This includes the admin account name and password, the server configuration, the device you want to configure your listening services, ...</br>Don't forget to set the right interface found from ``ip addr show``.
 1. Change back into the puppet-lanserver directory. Run ``bash install_server.sh`` as root.
     * This script adds every requirement and installs every server component enabled by a a simple puppet **lanserver/manifests/params.pp** parameter.
     * If the script runs successfully every service should be running except *dnsmasq*.
