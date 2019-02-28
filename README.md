@@ -46,13 +46,14 @@ You also need to add language vars to *lanserver/manifests/webroot.pp* for your 
 ## Enable or disable specific services
 Every service mentioned above can be managed independently. Enable or disable the services via *lanserver/manifests/params,pp*
 
-## Usage
+## Usage / Installation
 1. Download the code to your server. For example with git.``git clone --recursive https://github.com/pseiler/puppet-lanserver``
 1. Change into the puppet module directory ``cd lanserver/manifests``
-1. Edit the params.pp to the values you like. This includes the admin account name and password, the server configuration, the device you want to configure your listening services, ...
-1. Change back into the puppet-lanserver directory. Run ``bash pre_puppet.sh`` as root.
-1. If the script run successfully, Every server component should be installed and running. It adds all neccessary repositories and runs puppet serverless via "puppet apply".
-1. Now you can simply update your configuration with the outputted command from ``bash pre_puppet.sh``
+1. Edit the **lanserver/manifests/params.pp** to the values you like. This includes the admin account name and password, the server configuration, the device you want to configure your listening services, ...
+1. Change back into the puppet-lanserver directory. Run ``bash install_server.sh`` as root.
+    * This script adds every requirement and installs every server component enabled by a a simple puppet **lanserver/manifests/params.pp** parameter.
+    * If the script runs successfully every service should be running except *dnsmasq*.
+1. Reboot your system when the script successfully deployed the puppet module. Caution! The DHCP Server starts after the next reboot.
 
 ## Verifying everything is running
 This lanserver features serveral type of services.
