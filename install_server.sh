@@ -10,12 +10,12 @@ centos_requirements(){
     then
         if ! rpm -qa | grep "epel-release-latest\|puppet5-release";
         then
-            yum install -y "https://dl.fedoraproject.org/pub/epel/epel-release-latest-${DISTRO_VERSION}.noarch.rpm https://yum.puppetlabs.com/puppet5/puppet5-release-el-${DISTRO_VERSION}.noarch.rpm";
+            yum install -y "https://dl.fedoraproject.org/pub/epel/epel-release-latest-${DISTRO_VERSION}.noarch.rpm https://yum.puppetlabs.com/puppet5/puppet5-release-el-${DISTRO_VERSION}.noarch.rpm" git;
         fi
         yum install -y "puppet-agent" "puppetlabs-stdlib";
         if [ -f /etc/profile.d/puppet.sh ];
         then
-            if [ ! -x $(which puppet) ];
+            if ! which puppet > /dev/null;
             then
                 source /etc/profile.d/puppet.sh;
             fi;
@@ -69,6 +69,12 @@ then
     echo "#!/bin/csh" > /etc/profile.d/puppet.csh;
     echo "PATH=\"\${PATH}:/opt/puppetlabs/puppet/bin\"" >> /etc/profile.d/puppet.csh;
 fi;
+
+# checkout submodules when git is used
+if [ -d ${HERE}/.git ]
+then
+    git submodule update;
+fi
 
 ## apply the actual puppet code
 # set the module path so puppet apply finds every module
