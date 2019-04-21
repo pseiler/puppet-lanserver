@@ -38,13 +38,13 @@ then
 fi;
 
 # get distribution
-if [ ! -e "/etc/osrelease" ];
+if [ -e "/etc/os-release" ];
 then
     DISTRO=$(grep "^ID=" "/etc/os-release" | cut -d"=" -f2| sed 's/"//g');
     DISTRO_VERSION=$(grep "^VERSION_ID=" "/etc/os-release" | cut -d"=" -f2);
 else
     echo "Linux distribution not found.";
-    echo "Maybe the file \"/etc/os-realese\" is just missing.";
+    echo "Maybe the file \"/etc/os-release\" is just missing.";
     echo "Or your linux distribution is too old.";
     exit 1;
 fi;

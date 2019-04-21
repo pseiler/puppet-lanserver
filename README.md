@@ -87,6 +87,9 @@ Example:
 root# nat_control.sh enable eth1
 ```
 
+## Contributing
+If you want to add a component to the puppet module, just create a new <component>.pp to the ``lanserver/manifests/`` directory and write some puppet code. If you want to add support for more distributions, modify the ``install_server.sh`` file and add a function which checks requirements as repositories for packages, etc. Don't forget to check the module code for distribution-specific paths and add a conditional statement for it.
+
 ## ToDos
 * interactive bash script to create a hiera template which overwrites parameters from params.pp
 * add mumble server
