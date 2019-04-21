@@ -2,6 +2,9 @@
 
 ## Setting neccessary variables
 HERE="$(dirname "$(readlink -f "${0}")")";
+
+## Set this according to your puppet modules directory
+## shipped with your puppet installation
 PUPPET_MODULE_PATH="/usr/share/puppet/modules/";
 
 
@@ -51,6 +54,7 @@ fi;
 ### Preparing everything every repo to deploy puppet code and install rpms.
 case "${DISTRO}" in
     centos|redhat)
+        centos_requirements
         ;;
     *)
         echo "The distribution \"${DISTRO}\" is not supported.";
