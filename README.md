@@ -18,7 +18,7 @@ The following components are included
 
 ## Features
 * Automatically deploy an environment for a LAN party. Provide all neccesary network services and client tools via http
-* Share prepared games via torrent. Use a easy-to-use script ``add_game.sh``to create an entry in your websergers */games.html* and add a local file or **directory**.
+* Share prepared games via torrent. Use a easy-to-use script ``add_game.sh``to create an entry in your webservers */games.html* and add a local file or **directory**.
 * Users can upload an archive via FTP and the server creates a **torrent** file for it and shares the content with with it's own client.
 * Create your own Games list with a simple bash script *add\_game.sh*. It automatically generates an entry in your webservers */games.html*.
   The template directory for every game is located in */var/www/template*.
