@@ -17,20 +17,21 @@ class lanserver::ngircd (
     allow_virtual => false,
   }
   file { '/etc/ngircd.conf':
-    ensure => 'present',
+    ensure  => 'present',
     content => epp('lanserver/ngircd.conf.epp', {'ip_addr' => $ip_addr, 'domain' => $my_domain, 'hostname' => $my_hostname, 'operator' => $admin_user, 'operator_password' => $password,}),
-    mode   => '0660',
-    owner  => 'root',
-    group  => 'ngircd',
-    notify => [Service['ngircd'],Package['ngircd'],],
+    mode    => '0660',
+    owner   => 'root',
+    group   => 'ngircd',
+    notify  => [Service['ngircd'],],
+    require => [Package['ngircd'],],
   }
   file { '/etc/ngircd.motd':
-    ensure => 'present',
-    source => "puppet:///modules/lanserver/ngircd.motd",
-    mode   => '0660',
-    owner  => 'root',
-    group  => 'ngircd',
-    notify => [Service['ngircd'],],
+    ensure  => 'present',
+    source  => "puppet:///modules/lanserver/ngircd.motd",
+    mode    => '0660',
+    owner   => 'root',
+    group   => 'ngircd',
+    notify  => [Service['ngircd'],],
     require => [Package['ngircd'],],
   }
   
@@ -44,7 +45,7 @@ class lanserver::ngircd (
 #     }
   service { 'ngircd':
     ensure  => 'running',
-    enable  => 'true',
+    enable  => true,
     require => [Package['ngircd'],File['/etc/ngircd.motd','/etc/ngircd.conf'],],
   } 
 }
