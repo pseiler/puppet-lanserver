@@ -2,13 +2,14 @@
       String $netmask,
       String $network,
       String $network_device,
+      String $bootproto,
 | -%>
 # UNDER PUPPET CONTROL - MODIFICATIONS WILL BE OVERWRITTEN
 TYPE="Ethernet"
 NM_CONTROLLED="no"
 PROXY_METHOD="none"
 BROWSER_ONLY="no"
-BOOTPROTO="no"
+BOOTPROTO="<%= $bootproto %>"
 DEFROUTE="no"
 IPV4_FAILURE_FATAL="yes"
 IPV6INIT="no"

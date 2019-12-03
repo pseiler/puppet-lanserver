@@ -6,32 +6,35 @@
 
 ## apache
 class lanserver::httpd (
+  $apache_package_name = $::lanserver::params::apache_package_name,
+  $apache_service_name = $::lanserver::params::apache_service_name,
+  $apache_conf_file    = $::lanserver::params::apache_conf_file,
 ) {
-  package { 'httpd':
+  package { $apache_package_name:
     ensure        => 'installed',
     allow_virtual => false,
   }
   ### prevent welcome bage to load if apache is freshly installed
   file { '/etc/httpd/conf.d/welcome.conf':
     ensure => 'absent',
-    notify => Service['httpd'],
+    notify => Service[$apache_service_name],
   }
  
   # ensure apache is running 
-  service { 'httpd':
+  service { $apache_service_name:
     ensure  => 'running',
     enable  => 'true',
     require => [File['/etc/httpd/conf.d/welcome.conf'],],
   }
   
   # deploy configuration file.
-  file { '/etc/httpd/conf/httpd.conf':
+  file { $apache_conf_file:
     ensure  => 'present',
     source  => 'puppet:///modules/lanserver/httpd.conf',
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
-    require => Package['httpd'],
+    require => Package[$apache_package_name],
   }
   
   # make output of file listing simpler 
@@ -40,6 +43,6 @@ class lanserver::httpd (
     path   => '/etc/httpd/conf.d/autoindex.conf',
     line   => 'IndexOptions VersionSort',
     match  => '^IndexOptions',
-    notify => [Service['httpd'],],
+    notify => [Service[$apache_package_name],],
   }
 }

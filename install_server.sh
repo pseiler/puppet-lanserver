@@ -9,27 +9,67 @@ PUPPET_MODULE_PATH="/usr/share/puppet/modules/";
 
 
 centos_requirements(){
-    if ! rpm -qa | grep "puppet-agent\|puppetlabs-stdlib";
+    if ! rpm -qa | grep -q "puppet-agent\|puppetlabs-stdlib";
     then
-        if ! rpm -qa | grep "epel-release-latest\|puppet5-release";
+        if ! rpm -qa | grep -q "epel-release-latest\|puppet5-release";
         then
             yum install -y "https://dl.fedoraproject.org/pub/epel/epel-release-latest-${DISTRO_VERSION}.noarch.rpm https://yum.puppetlabs.com/puppet5/puppet5-release-el-${DISTRO_VERSION}.noarch.rpm" git;
         fi
         yum install -y "puppet-agent" "puppetlabs-stdlib";
-        if [ -f /etc/profile.d/puppet.sh ];
+    fi;
+    if [ -f /etc/profile.d/puppet.sh ];
+    then
+        if ! which puppet > /dev/null;
         then
-            if ! which puppet > /dev/null;
-            then
-                source /etc/profile.d/puppet.sh;
-            fi;
-        else
-            # Creating search path for puppet binary for bash
-            echo "#!/bin/bash" > /etc/profile.d/puppet.sh;
-            echo "PATH=\"\${PATH}:/opt/puppetlabs/puppet/bin\"" >> /etc/profile.d/puppet.sh;
+            source /etc/profile.d/puppet.sh;
         fi;
+    else
+        # Creating search path for puppet binary for bash
+        echo "#!/bin/bash" > /etc/profile.d/puppet.sh;
+        echo "PATH=\"\${PATH}:/opt/puppetlabs/puppet/bin\"" >> /etc/profile.d/puppet.sh;
     fi;
 }
-
+suse_requirements(){
+    local PUPPET5_REPO="https://yum.puppetlabs.com/puppet5/sles/15/x86_64/"
+    local PUPPETLABS_REPO="https://download.opensuse.org/repositories/home:/seilerphilipp:/puppet/openSUSE_Leap_15.1/"
+    local OPENTRACKER_REPO="https://download.opensuse.org/repositories/home:/seilerphilipp:/opentracker/openSUSE_Leap_15.1/"
+    if ! rpm -qa | grep -q "puppet-agent";
+    then
+        if ! zypper repos --uri | grep -qi "${PUPPET5_REPO}";
+        then
+            zypper addrepo -f "${PUPPET5_REPO}" "puppet5";
+        fi;
+        zypper install -y "puppet-agent";
+    fi;
+    if ! rpm -qa | grep -q "puppetlabs-stdlib";
+    then
+        if ! zypper repos --uri | grep -qi "${PUPPETLABS_REPO}";
+        then
+            zypper addrepo -f "${PUPPETLABS_REPO}" "puppetlabs";
+        fi
+	zypper --gpg-auto-import-keys refresh
+        zypper install -y "puppetlabs-stdlib";
+    fi;
+    if ! rpm -qa | grep -q "opentracker";
+    then
+        if ! zypper repos --uri | grep -qi "${OPENTRACKER_REPO}";
+        then
+            zypper addrepo -f "${OPENTRACKER_REPO}" "opentracker";
+        fi
+	zypper --gpg-auto-import-keys refresh
+    fi;
+    if [ -f /etc/profile.d/puppet.sh ];
+    then
+        if ! which puppet &> /dev/null;
+        then
+            source /etc/profile.d/puppet.sh;
+        fi;
+    else
+        # Creating search path for puppet binary for bash
+        echo "#!/bin/bash" > /etc/profile.d/puppet.sh;
+        echo "PATH=\"\${PATH}:/opt/puppetlabs/puppet/bin\"" >> /etc/profile.d/puppet.sh;
+    fi;
+}
 
 if [ $UID -ne 0 ];
 then
@@ -56,6 +96,9 @@ case "${DISTRO}" in
     centos|redhat)
         centos_requirements
         ;;
+    opensuse-leap)
+        suse_requirements
+        ;;
     *)
         echo "The distribution \"${DISTRO}\" is not supported.";
         echo "Sorry.";
@@ -77,8 +120,15 @@ fi;
 # checkout submodules when git is used
 if [ -d ${HERE}/.git ]
 then
-    git submodule update;
+    git submodule update --init;
 fi
+
+# check for puppet binary
+if [ ! -e "$(which puppet)" ];
+then
+    echo '"puppet" binary not found.';
+    exit 1;
+fi;
 
 ## apply the actual puppet code
 # set the module path so puppet apply finds every module

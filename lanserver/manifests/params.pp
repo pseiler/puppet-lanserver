@@ -136,14 +136,8 @@ $enable_opentracker            = true
 $enable_httpd                  = true
 $enable_webroot                = true
 $enable_ngircd                 = true
-$enable_kiwiirc                = true
+$enable_kiwiirc                = false
 $enable_gameserver             = false
-
-if ($::operatingsystem == 'SLES') {
-    $webroot                       = '/srv/www/html'
-} else {
-    $webroot                       = '/var/www/html'
-}
 $lang                          = 'en'
 $admin_user                    = 'admin'
 $password                      = 'lanparty'
@@ -152,6 +146,41 @@ $network                       = '10.20.0.0'
 $dhcp_start                    = '10.20.0.100'
 $dhcp_end                      = '10.20.0.200'
 $netmask                       = '255.255.255.0'
+  case $::osfamily {
+    'RedHat': {
+      $bootproto 	        = 'none'
+      $template_dir             = '/var/www/template'
+      $network_scripts          = '/etc/sysconfig/network-scripts'
+      $webroot                  = '/var/www/html'
+      $vsftpd_conf_file         = '/etc/vsftpd/vsftpd.conf'
+      $apache_user              = 'apache'
+      $apache_group             = 'apache'
+      $apache_package_name      = 'httpd'
+      $apache_service_name      = 'httpd'
+      $apache_conf_file         = '/etc/httpd/httpd.conf'
+      $opentracker_package_name = 'opentracker-ipv4'
+      $opentracker_conf         = '/etc/opentracker/opentracker-ipv4.conf'
+      $opentracker_bin          = '/usr/bin/opentracker-ipv4'
+    }
+    'Suse': {
+      $bootproto = 'static'
+      $template_dir             = '/srv/www/template'
+      $network_scripts          = '/etc/sysconfig/network'
+      $webroot                  = '/srv/www/htdocs'
+      $vsftpd_conf_file         = '/etc/vsftpd.conf'
+      $apache_user              = 'wwwrun'
+      $apache_group             = 'wwwrun'
+      $apache_package_name      = 'apache2'
+      $apache_service_name      = 'apache2'
+      $apache_conf_file         = '/etc/apache2/httpd.conf'
+      $opentracker_package_name = 'opentracker'
+      $opentracker_conf         = '/etc/opentracker-ipv4.conf'
+      $opentracker_bin          = '/usr/sbin/opentracker-ipv4'
+    }
+    default: {
+      fail("${::osfamily}/${::operatingsystem} ${::operatingsystemrelease} not supported")
+    }
+  }
 $network_device                = 'eth1'
 $my_hostname                   = 'server'
 $my_shortname                  = 'srv'
@@ -164,5 +193,4 @@ $tracker_rootdir               = '/var/opentracker'
 $tracker_port                  = 6969
 $tracker_url                   = "http://${my_hostname}.${my_domain}:${tracker_port}/announce"
 $alternate_url                 = "http://test.server:6969/announce"
-$template_dir                  = '/var/www/template'
 }

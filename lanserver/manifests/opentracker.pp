@@ -10,14 +10,17 @@ class lanserver::opentracker (
   $ip_addr,
   $tracker_rootdir,
   $tracker_port,
+  $opentracker_package_name = $::lanserver::params::opentracker_package_name,
+  $opentracker_conf         = $::lanserver::params::opentracker_conf,
+  $opentracker_bin          = $::lanserver::params::opentracker_bin,
 ) {
-  package { 'opentracker-ipv4':
+  package { $opentracker_package_name:
     ensure        => 'installed',
     allow_virtual => false,
   }
   file { '/etc/systemd/system/opentracker-ipv4.service':
     ensure => 'present',
-    source => "puppet:///modules/lanserver/opentracker-ipv4.service",
+    content => epp('lanserver/opentracker-ipv4.service.epp', {'opentracker_conf' => $opentracker_conf, 'opentracker_bin' => $opentracker_bin,}),
     mode   => '0644',
     owner  => 'root',
     group  => 'root',
@@ -25,7 +28,7 @@ class lanserver::opentracker (
   }
   
   #configuration file
-  file { '/etc/opentracker/opentracker-ipv4.conf':
+  file { $opentracker_conf:
     ensure => 'present',
     content => epp('lanserver/opentracker-ipv4.conf.epp', {'ip_addr' => $ip_addr, 'tracker_port' => $tracker_port, 'tracker_rootdir' => $tracker_rootdir,}),
 
@@ -37,6 +40,6 @@ class lanserver::opentracker (
   service { 'opentracker-ipv4':
     ensure  => 'running',
     enable  => 'true',
-    require => [File['/etc/opentracker/opentracker-ipv4.conf','/etc/systemd/system/opentracker-ipv4.service'],],
+    require => [File[$opentracker_conf,'/etc/systemd/system/opentracker-ipv4.service'],],
   } 
 }
