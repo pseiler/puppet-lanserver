@@ -3,6 +3,7 @@
       String $network,
       String $network_device,
       String $bootproto,
+      Optional[String] $startmode,
 | -%>
 # UNDER PUPPET CONTROL - MODIFICATIONS WILL BE OVERWRITTEN
 TYPE="Ethernet"
@@ -21,6 +22,9 @@ ONBOOT="yes"
 
 NAME="<%= $network_device %>"
 DEVICE="<%= $network_device %>"
-IPADDR=<%= $ip_addr %>
-NETMASK=<%= $netmask %>
-NETWORK=<%= $network %>
+IPADDR="<%= $ip_addr %>"
+NETMASK="<%= $netmask %>"
+NETWORK="<%= $network %>"
+<% if $startmode { -%>
+STARTMODE="<%= $startmode %>"
+<% } -%>

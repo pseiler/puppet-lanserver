@@ -18,9 +18,12 @@ class lanserver::host (
     group  => 'root',
   }
  
+  if ($::osfamily == 'Suse') {
+    $startmode = 'ifplugd'
+  }
   file { "${network_scripts}/ifcfg-${network_device}":
     ensure => 'present',
-    content => epp('lanserver/ifcfg-lan.epp', {'ip_addr' => $ip_addr, 'network_device' => $network_device, 'network' => $network, 'netmask' => $netmask, 'bootproto' => $bootproto, }),
+    content => epp('lanserver/ifcfg-lan.epp', {'ip_addr' => $ip_addr, 'network_device' => $network_device, 'network' => $network, 'netmask' => $netmask, 'bootproto' => $bootproto, 'startmode' => $startmode, }),
     mode   => '0644',
     owner  => 'root',
     group  => 'root',
