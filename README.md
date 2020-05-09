@@ -102,3 +102,4 @@ If you want to add a component to the puppet module, just create a new <componen
 * Support other solutions for the admin to upload a game to the server except ssh/scp. Something like uploading a file/directory via non-anonymous ftp user.
 * search for a better solution to translate titles of the website in webroot.pp. Consider a own class containting the language variables or something.
 * Add information about bridging from a vm
+* add spec tests to test all kinds of stuff
