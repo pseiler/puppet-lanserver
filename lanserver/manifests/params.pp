@@ -146,7 +146,7 @@ $network                       = '10.20.0.0'
 $dhcp_start                    = '10.20.0.100'
 $dhcp_end                      = '10.20.0.200'
 $netmask                       = '255.255.255.0'
-  case $::osfamily {
+  case $facts['os']['family'] {
     'RedHat': {
       $bootproto 	        = 'none'
       $template_dir             = '/var/www/template'
@@ -158,7 +158,7 @@ $netmask                       = '255.255.255.0'
       $apache_package_name      = 'httpd'
       $apache_service_name      = 'httpd'
       $apache_conf_file         = '/etc/httpd/httpd.conf'
-      $opentracker_package_name = 'opentracker-ipv4'
+      $opentracker_package_name = 'opentracker'
       $opentracker_conf         = '/etc/opentracker/opentracker-ipv4.conf'
       $opentracker_bin          = '/usr/bin/opentracker-ipv4'
     }
@@ -175,7 +175,7 @@ $netmask                       = '255.255.255.0'
       $apache_conf_file         = '/etc/apache2/httpd.conf'
       $opentracker_package_name = 'opentracker'
       $opentracker_conf         = '/etc/opentracker-ipv4.conf'
-      $opentracker_bin          = '/usr/sbin/opentracker-ipv4'
+      $opentracker_bin          = '/usr/bin/opentracker-ipv4'
     }
     default: {
       fail("${::osfamily}/${::operatingsystem} ${::operatingsystemrelease} not supported")
@@ -189,7 +189,7 @@ $transmission_rpc_port         = 9091
 $transmission_whitelist_ips    = '10.0.0.1, 10.0.0.2'
 $torrent_dir                   = '/var/lib/transmission/Downloads'
 $anon_ftp_root                 = '/var/ftp'
-$tracker_rootdir               = '/var/opentracker'
+$tracker_rootdir               = '/var/lib/opentracker'
 $tracker_port                  = 6969
 $tracker_url                   = "http://${my_hostname}.${my_domain}:${tracker_port}/announce"
 $alternate_url                 = "http://test.server:6969/announce"

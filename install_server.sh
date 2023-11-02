@@ -11,11 +11,12 @@ PUPPET_MODULE_PATH="/usr/share/puppet/modules/";
 centos_requirements(){
     if ! rpm -qa | grep -q "puppet-agent\|puppetlabs-stdlib";
     then
-        if ! rpm -qa | grep -q "epel-release-latest\|puppet5-release";
+        if ! rpm -qa | grep -q "epel-release-latest\|puppet8-release";
         then
-            yum install -y "https://dl.fedoraproject.org/pub/epel/epel-release-latest-${DISTRO_VERSION}.noarch.rpm https://yum.puppetlabs.com/puppet5/puppet5-release-el-${DISTRO_VERSION}.noarch.rpm" git;
+            yum install -y "https://dl.fedoraproject.org/pub/epel/epel-release-latest-${DISTRO_VERSION}.noarch.rpm" "https://yum.puppetlabs.com/puppet8/el/${DISTRO_VERSION}/x86_64/puppet8-release-1.0.0-3.el${DISTRO_VERSION}.noarch.rpm" git;
         fi
-        yum install -y "puppet-agent" "puppetlabs-stdlib";
+        yum install -y "puppet-agent";
+        rpm --import https://download.opensuse.org/repositories/home:/seilerphilipp:/opentracker/AlmaLinux_9/repodata/repomd.xml.key
     fi;
     if [ -f /etc/profile.d/puppet.sh ];
     then
@@ -30,14 +31,14 @@ centos_requirements(){
     fi;
 }
 suse_requirements(){
-    local PUPPET5_REPO="https://yum.puppetlabs.com/puppet5/sles/15/x86_64/"
+    local PUPPET5_REPO="https://yum.puppetlabs.com/puppet8/sles/15/x86_64/"
     local PUPPETLABS_REPO="https://download.opensuse.org/repositories/home:/seilerphilipp:/puppet/openSUSE_Leap_15.1/"
     local OPENTRACKER_REPO="https://download.opensuse.org/repositories/home:/seilerphilipp:/opentracker/openSUSE_Leap_15.1/"
     if ! rpm -qa | grep -q "puppet-agent";
     then
         if ! zypper repos --uri | grep -qi "${PUPPET5_REPO}";
         then
-            zypper addrepo -f "${PUPPET5_REPO}" "puppet5";
+            zypper addrepo -f "${PUPPET5_REPO}" "puppet8";
         fi;
         zypper install -y "puppet-agent";
     fi;
@@ -81,7 +82,12 @@ fi;
 if [ -e "/etc/os-release" ];
 then
     DISTRO=$(grep "^ID=" "/etc/os-release" | cut -d"=" -f2| sed 's/"//g');
-    DISTRO_VERSION=$(grep "^VERSION_ID=" "/etc/os-release" | cut -d"=" -f2);
+    if grep "^VERSION_ID=" "/etc/os-release" | tr -d '"' | cut -d"=" -f2 | grep -q '\.'
+    then
+        DISTRO_VERSION=$(grep "^VERSION_ID=" "/etc/os-release" | tr -d '"' | cut -d"=" -f2 | cut -d'.' -f1);
+    else
+        DISTRO_VERSION=$(grep "^VERSION_ID=" "/etc/os-release" | tr -d '"' | cut -d"=" -f2);
+    fi
 else
     echo "Linux distribution not found.";
     echo "Maybe the file \"/etc/os-release\" is just missing.";
@@ -93,7 +99,7 @@ fi;
 ### checking if distribution is fupported.
 ### Preparing everything every repo to deploy puppet code and install rpms.
 case "${DISTRO}" in
-    centos|redhat)
+    centos|redhat|almalinux)
         centos_requirements
         ;;
     opensuse-leap)

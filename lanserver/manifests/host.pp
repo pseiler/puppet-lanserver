@@ -12,18 +12,32 @@ class lanserver::host (
   ## host configuration
   file { '/etc/hosts':
     ensure => 'present',
-    content => epp('lanserver/hosts.epp', {'ip_addr' => $ip_addr, 'hostname' => $my_hostname, 'shortname' => $my_shortname, 'domain' => $my_domain, }),
+    content => epp('lanserver/hosts.epp', {
+      'ip_addr'   => $ip_addr,
+      'hostname'  => $my_hostname,
+      'shortname' => $my_shortname,
+      'domain'    => $my_domain,
+    }),
     mode   => '0644',
     owner  => 'root',
     group  => 'root',
   }
  
-  if ($::osfamily == 'Suse') {
+  if ($facts['os']['family'] == 'Suse') {
     $startmode = 'ifplugd'
+  } else {
+    $startmode = undef
   }
   file { "${network_scripts}/ifcfg-${network_device}":
     ensure => 'present',
-    content => epp('lanserver/ifcfg-lan.epp', {'ip_addr' => $ip_addr, 'network_device' => $network_device, 'network' => $network, 'netmask' => $netmask, 'bootproto' => $bootproto, 'startmode' => $startmode, }),
+    content => epp('lanserver/ifcfg-lan.epp', {
+      'ip_addr'        => $ip_addr,
+      'network_device' => $network_device,
+      'network'        => $network,
+      'netmask'        => $netmask,
+      'bootproto'      => $bootproto,
+      'startmode'      => $startmode,
+    }),
     mode   => '0644',
     owner  => 'root',
     group  => 'root',
@@ -33,7 +47,7 @@ class lanserver::host (
     ensure  => 'stopped',
     enable  => 'false',
   }
-  if ($::osfamily == 'Redhat') {
+  if ($facts['os']['family'] == 'Redhat') {
     ## disable_selinux. Reboot to make effect. Or run "setenforce 0" on command line as root.
     file_line { 'selinux_disable':
       ensure => 'present',
@@ -42,6 +56,7 @@ class lanserver::host (
       match  => '^SELINUX=',
     }
   }
+  # nmcli con add con-name lan0 type ethernet ifname enp7s0 ipv4.method manual ipv4.address 10.20.0.1/24
 
   file { "/usr/local/sbin/recreate_whitelist.sh":
     ensure => 'present',

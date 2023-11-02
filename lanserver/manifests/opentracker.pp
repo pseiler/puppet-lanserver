@@ -18,20 +18,26 @@ class lanserver::opentracker (
     ensure        => 'installed',
     allow_virtual => false,
   }
-  file { '/etc/systemd/system/opentracker-ipv4.service':
-    ensure => 'present',
-    content => epp('lanserver/opentracker-ipv4.service.epp', {'opentracker_conf' => $opentracker_conf, 'opentracker_bin' => $opentracker_bin,}),
-    mode   => '0644',
-    owner  => 'root',
-    group  => 'root',
-    notify => Exec['systemd_reload'],
-  }
+#  file { '/etc/systemd/system/opentracker-ipv4.service':
+#    ensure => 'present',
+#    content => epp('lanserver/opentracker-ipv4.service.epp', {
+#      'opentracker_conf' => $opentracker_conf,
+#      'opentracker_bin'  => $opentracker_bin,
+#    }),
+#    mode   => '0644',
+#    owner  => 'root',
+#    group  => 'root',
+#    notify => Exec['systemd_reload'],
+#  }
   
   #configuration file
   file { $opentracker_conf:
     ensure => 'present',
-    content => epp('lanserver/opentracker-ipv4.conf.epp', {'ip_addr' => $ip_addr, 'tracker_port' => $tracker_port, 'tracker_rootdir' => $tracker_rootdir,}),
-
+    content => epp('lanserver/opentracker-ipv4.conf.epp', {
+      'ip_addr'         => $ip_addr,
+      'tracker_port'    => $tracker_port,
+      'tracker_rootdir' => $tracker_rootdir,
+    }),
     mode   => '0644',
     owner  => 'root',
     group  => 'root',
@@ -40,6 +46,6 @@ class lanserver::opentracker (
   service { 'opentracker-ipv4':
     ensure  => 'running',
     enable  => 'true',
-    require => [File[$opentracker_conf,'/etc/systemd/system/opentracker-ipv4.service'],],
+    require => File[$opentracker_conf],
   } 
 }
